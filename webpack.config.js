@@ -75,7 +75,7 @@ const config = {
   },
   plugins: [
 	  new HtmlWebpackPlugin({
-	  	title: '胡明飞',
+	  	title: '论文工具',
 	  	template: path.resolve(__dirname, './src/modules/codeCloud/index.html'),
 	  }),
 	  new ExtractTextPlugin("css/styles.css"),
