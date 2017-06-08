@@ -2,11 +2,21 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
+const readFolderNamesSync = require('./tools/searckfolder.js');
 const path = require('path');
+const entryFolider = [];
+const  FolderNames = readFolderNamesSync(__dirname+'/src/modules');
+for (var i=0; i< FolderNames.length; i++) {
+  entryFolider.push(path.resolve(__dirname, './src/modules/'+FolderNames[i]+'/app.js'))
+}
+console.log('*********列出模块*********');
+console.log(entryFolider);
 const NODE_DIR = path.resolve(__dirname, 'node_modules');
 const config = {
   context: path.resolve(__dirname, "app"),
-  entry: path.resolve(__dirname, './src/modules/codeCloud/app.js'),
+  entry: [
+    path.resolve(__dirname, './src/modules/codeCloud/app.js')
+  ],
   output: {
   	path: path.resolve(__dirname, "dist/codeCloud"),
   	filename: "js/[name].js",
