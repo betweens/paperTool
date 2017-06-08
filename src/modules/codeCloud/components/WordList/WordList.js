@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import userModel from './../../models/AbstractModel.js';
 import './WordList.css';
-const store = new Store(); // default is window.localStorage
 class WordList extends Component {
   constructor(props){
     super(props)
