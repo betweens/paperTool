@@ -1,5 +1,5 @@
 {
-  "name": "phalapi",
+  "name": "paperTool",
   "version": "1.0.0",
   "description": "'测试 接口'",
   "scripts": {
@@ -12,21 +12,21 @@
   },
   "keywords": [
     "react",
-    "phalApi"
+    "word"
   ],
   "author": "betweens",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/betweens/phalApi-join-react/issues"
+    "url": "https://github.com/betweens/paperTool/issues"
   },
-  "homepage": "https://github.com/betweens/phalApi-join-react#readme",
+  "homepage": "https://github.com/betweens/paperTool#readme",
   "dependencies": {
     "leancloud-storage": "^2.5.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-router-dom": "^4.1.1",
     "simple_localstorage_api": "^1.0.6",
-    "superagent": "^3.5.2"
+   // "superagent": "^3.5.2"
   },
   "devDependencies": {
     "webpack": "^2.5.1",
