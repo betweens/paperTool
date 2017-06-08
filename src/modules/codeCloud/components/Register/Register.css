@@ -1,0 +1,15 @@
+.Login {
+  span {
+    display: inline-block;
+    width: 100px;
+    padding: 10px 0;
+    font-size: 16px;
+    text-align: right;
+    padding-right: 10px;
+  }
+
+  input {
+    border: 1px solid #ccc;
+    height: 20px;
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "WordList",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./WordList.js"
+}
