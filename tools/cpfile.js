@@ -5,15 +5,22 @@ const del = require('del');
 if (!fs.existsSync('./dist/')) {
   fs.mkdirSync('./dist/',function(){
     console.log('./dist/:----创建成功');
-  });
+  }); 
 }
-del('./dist/*', { dryRun: true }).then(paths => {
+
+if (!fs.existsSync('./dist/codeCloud/')) {
+  fs.mkdirSync('./dist/codeCloud',function(){
+    console.log('./dist/codeCloud:----创建成功');
+  }); 
+}
+
+del('./dist/codeCloud/*', { dryRun: true }).then(paths => {
     console.log('删除文件目录:\n', paths.join('\n'));
 });
 
 ncp.limit = 16;
 
-var destination = './dist/libs/';
+var destination = './dist/codeCloud/libs/';
 var soruceReact = `.${path.sep}node_modules${path.sep}react${path.sep}dist${path.sep}react.min.js`;
 var soruceReactDom = `.${path.sep}node_modules${path.sep}react-dom${path.sep}dist${path.sep}react-dom.min.js`;
 var soruceReactRouter =  `.${path.sep}node_modules${path.sep}react-router-dom${path.sep}umd${path.sep}react-router-dom.min.js`;

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Store } from 'simple_localstorage_api';
 import userModel from './../../models/AbstractModel.js';
 import './WordList.css';
 const store = new Store(); // default is window.localStorage

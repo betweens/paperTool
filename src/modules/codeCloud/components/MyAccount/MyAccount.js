@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import CodeMirror from 'react-codemirror';
-import { Store } from 'simple_localstorage_api';
 import userModel from './../../models/AbstractModel.js';
 import './MyAccount.css';
-const store = new Store(); // default is window.localStorage
 class Main extends Component {
   constructor(props){
     super(props)
@@ -41,10 +38,8 @@ class Main extends Component {
     }, (error) => {
       console.log(error);
     })
-    store.set('test',{key: 'ddd', id: [1,2,3,4]});
   }
   uploadFile() {
-    console.log(store.find('test'));
    /* const params = {
       userId: this.userId,
       show: 1,

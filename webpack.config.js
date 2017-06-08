@@ -8,7 +8,7 @@ const config = {
   context: path.resolve(__dirname, "app"),
   entry: path.resolve(__dirname, './src/modules/codeCloud/app.js'),
   output: {
-  	path: path.resolve(__dirname, "dist"),
+  	path: path.resolve(__dirname, "dist/codeCloud"),
   	filename: "js/[name].js",
   	// publicPath: "/assets/",
     // library: "MyLibrary",
@@ -65,11 +65,9 @@ const config = {
 		'react-dom': 'ReactDOM',
 	}, {
 		'react-router-dom': 'ReactRouterDOM',
-	}, {
-    'react-codemirror': 'CodeMirror',
-  }],
+	}],
   devServer: {
-    contentBase: path.join(__dirname, "dist"),
+    contentBase: path.join(__dirname, "dist/codeCloud"),
     compress: true,
     port: 5000,
   },
