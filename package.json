@@ -1,7 +1,7 @@
 {
   "name": "paperTool",
   "version": "1.0.0",
-  "description": "'测试 接口'",
+  "description": "测试 接口",
   "scripts": {
     "start": "babel-node tools/cpfile.js && webpack-dev-server --content-base dist",
     "build": "babel-node tools/cpfile.js && webpack --progress --color"
@@ -25,8 +25,7 @@
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-router-dom": "^4.1.1",
-    "simple_localstorage_api": "^1.0.6",
-   // "superagent": "^3.5.2"
+    "simple_localstorage_api": "^1.0.6"
   },
   "devDependencies": {
     "webpack": "^2.5.1",
