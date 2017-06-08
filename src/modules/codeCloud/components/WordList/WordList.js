@@ -27,7 +27,7 @@ class WordList extends Component {
         "word":"apple",
         "translation":"苹果",
         "wordLevel":["4","6","gre"],
-        "wordFrequency":"311/2001",       
+        "wordFrequency":"311/2001",    
       }]
     }
 
@@ -48,7 +48,10 @@ class WordList extends Component {
           <p><span>词频:</span><b>{item.wordFrequency}</b></p>
         </li>)
     }); 
-    return (<div className="wordList"><ul>{li}</ul></div>);
+    return (<div className="wordList">
+
+      <ul>{li}</ul>
+    </div>);
   }
 }
 export default WordList;

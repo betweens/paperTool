@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import userModel from './../../models/AbstractModel.js';
 import './MyAccount.css';
-class Main extends Component {
+class MyAccount extends Component {
   constructor(props){
     super(props)
     this.state = {
@@ -10,29 +10,29 @@ class Main extends Component {
     }
     this.userId = '';
     this.uploadFile = this.uploadFile.bind(this);
+    this.logOutFn = this.logOutFn.bind(this);
   }
   componentWillMount() {
     const isLogin = userModel.getCurrentUser();
+    if (!isLogin) {
+      this.props.history.push('login');
+      return;
+    }
     this.userId = isLogin.id;
     const params = {
       objectId: this.userId,
     };
     userModel.getWordList(params, (data) => {
-      console.log(data.length );
       if (data.length > 0) {
-         const wordLists = [];
-         data.map((item) => {
-          wordLists.push(item.attributes.wordList)
-         });
+        
          this.setState({
           isDataReady: false,
-          info: false,
-          wordLists,
+          username: isLogin.attributes.username,
+          wordLists: data,
         })
       } else {
         this.setState({
           isDataReady: false,
-          info: '空',
         })
       }
     }, (error) => {
@@ -66,7 +66,6 @@ class Main extends Component {
         }) 
       }
   
-    
   /*  userModel.saveWordLists(params, (data) => {
       this.setState({
         wordList: data.attributes.wordList,
@@ -76,30 +75,35 @@ class Main extends Component {
       console.log(error);
     });*/
   }
- 
+  // 推出登录
+  logOutFn() {
+    userModel.logOut();
+    this.props.history.push('login');
+  }
   render() {
   	if (this.state.isDataReady) return null;
     const {
-      wordList = [],
       wordLists = [],
-      info,
+      username,
     } = this.state;
-    const list1 = wordLists.map((item, i) => {
-      const liItem = item.map(value => {
-        return <li key={i}><p>{item.word}</p><p>{item.translation}</p><p>{item.wordLevel}</p><p>{item.wordFrequency}</p></li>       
+    const list = wordLists.map((item) => {
+      const itemData = item.attributes.wordList;
+      const liItem = itemData.map((value, i) => {
+      return (<li>
+        <p><span>单词:</span><b>{value.word}</b></p>
+        <p><span>释义:</span><b>{value.translation}</b></p>
+        <p><span>等级:</span><b>{value.wordLevel}</b></p>
+        <p><span>词频:</span><b>{value.wordFrequency}</b></p>
+        </li>)     
       });
       return liItem;
     });
-    const list2 = wordList.map((item, i) => {
-      return <li key={i}><p>{item.word}</p><p>{item.translation}</p><p>{item.wordLevel}</p><p>{item.wordFrequency}</p></li>
-    });
-    return (<div className="container-content">
-      <h1>{info || null}</h1>
-      <div className="wordLists"><ul>{list1}</ul></div>
-      <div className="wordLists"><ul>{list2}</ul></div>
-      <input type="file" ref="photoFileUpload" />
-      <div className="upload" onClick={this.uploadFile}>上传</div>
+    return (<div className="myAccount">
+      <h1>{username}<small onClick={this.logOutFn}>退出登录</small></h1>
+      <h1>单词列表</h1>
+      <div className="wordLists"><ul>{list}</ul></div>
+      <div className="upload"><input type="file" ref="photoFileUpload" /><span onClick={this.uploadFile}>上传</span></div>
     </div>);
   }
 }
-export default Main;
+export default MyAccount;

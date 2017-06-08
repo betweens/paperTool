@@ -5,7 +5,7 @@ class Login extends Component {
   constructor(props){
     super(props)
     this.state = {
-      username: '',
+      mobilePhoneNumber: '',
       password: '',
     }
     this.userNmaehandleChange = this.userNmaehandleChange.bind(this);
@@ -14,15 +14,11 @@ class Login extends Component {
   }
   componentWillMount() {
     const isLogin = userModel.getCurrentUser();
-    if (isLogin) {
-      this.props.history.push('myAccount');
-    } else {
-      this.props.history.push('register');
-    }
+    if (isLogin) this.props.history.push('myAccount');   
   }
   // 获取用户名
   userNmaehandleChange(event) {
-    this.setState({username: event.target.value});
+    this.setState({mobilePhoneNumber: event.target.value});
   }
 
   // 获取密码
@@ -32,11 +28,11 @@ class Login extends Component {
   // 点击登录
   loginFn() {
     const {
-      username,
+      mobilePhoneNumber,
       password
     } = this.state;
 
-    if (username === '') {
+    if (mobilePhoneNumber === '') {
       alert('用户名不能为空');
       return;
     }
@@ -46,11 +42,12 @@ class Login extends Component {
       return;
     }
     const params = {
-      username,
+      mobilePhoneNumber,
       password,
     };
+    console.log(params);
     userModel.userLogin(params, (data) => {
-      this.props.history.push('main');
+      this.props.history.push('myAccount');
     }, (error) => {
       console.log(error);
     });
@@ -58,7 +55,7 @@ class Login extends Component {
 
   render() {
     return (<div className="Login">
-       <p><span>用户名:</span><input type="text" placeholder="输入用户名" onChange={this.userNmaehandleChange} /></p>
+       <p><span>用户名:</span><input type="number" placeholder="输入手机号" onChange={this.userNmaehandleChange} /></p>
        <p><span>密码:</span><input type="password" placeholder="输入密码" onChange={this.pwdhandleChange} /></p>
        <div className="login-btn"><button type="button" onClick={this.loginFn}>登录</button><b type="button">注册</b></div>
     </div>);

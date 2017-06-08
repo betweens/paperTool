@@ -10,25 +10,25 @@ class AbstractModel {
 
   // 注册用户  
   userLogin(params, succ, fail) {
-    console.log(params);
-    const user = new AV.User();
-    /*user.signUpOrlogInWithMobilePhone(params.mobilePhoneNumber, params.password).then(function (success) {
+    AV.User.logInWithMobilePhone(params.mobilePhoneNumber, params.password).then(function (loginedUser) {
       succ && succ(loginedUser);
-    }, function (error) {
-      fail && fail(error);
-    });
-     
-    AV.User.logInWithMobilePhone('13577778888', 'cat!@#123').then(function (loginedUser) {
-        console.log(loginedUser);
     }, (function (error) {
+      fail && fail(error);
     }));
-
-    */
-    user.logIn(params.username, params.password).then(function (loginedUser) {
+    /*
+    const user = new AV.User();
+    // 手机号 和验证码登录
+    user.signUpOrlogInWithMobilePhone(params.mobilePhoneNumber, params.password).then(function (success) {
       succ && succ(loginedUser);
     }, function (error) {
       fail && fail(error);
     });
+    // 用户明和密码登录
+    /*user.logIn(params.username, params.password).then(function (loginedUser) {
+      succ && succ(loginedUser);
+    }, function (error) {
+      fail && fail(error);
+    });*/
   }
   // 获取用户信息
   getUserInfo(userId) {
