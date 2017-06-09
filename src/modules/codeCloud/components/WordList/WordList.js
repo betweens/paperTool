@@ -58,6 +58,7 @@ class WordList extends Component {
     }); 
     return (<div className="flex-hrz wordList">
 
+<div className='view-paper'>查看原文</div>
  <div className="steps">
   <ul id="sortable">
 
