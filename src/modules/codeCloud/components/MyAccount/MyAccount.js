@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import userModel from './../../models/AbstractModel.js';
-import { Loading } from './../../../../common/index.js';
 import './MyAccount.css';
 class MyAccount extends Component {
   constructor(props){
     super(props)
     this.state = {
-    	isDataReady: true,
+      isDataReady: true,
     }
     this.userId = '';
     this.uploadFile = this.uploadFile.bind(this);
@@ -82,7 +81,7 @@ class MyAccount extends Component {
     this.props.history.push('login');
   }
   render() {
-  	if (this.state.isDataReady) return <Loading />;
+    if (this.state.isDataReady) return null;
     const {
       wordLists = [],
       username,
@@ -100,10 +99,104 @@ class MyAccount extends Component {
       return liItem;
     });
     return (<div className="myAccount">
-      <h1>{username}<small onClick={this.logOutFn}>退出登录</small></h1>
-      <h1>单词列表</h1>
       <div className="wordLists"><ul>{list}</ul></div>
-      <div className="upload"><input type="file" ref="photoFileUpload" /><span onClick={this.uploadFile}>上传</span></div>
+ 
+
+
+    <div className="myAccount-timeline">
+
+      <header>
+        <div className="">
+          <h1 className="logo">
+            论文<span>助手</span>
+            <div className="upload"><input type="file" ref="photoFileUpload" /><span onClick={this.uploadFile}>上传</span></div>
+          </h1>
+          <section className="social" onClick={this.logOutFn}>
+            <a className="btn" href="">{username}退出登录</a>
+          </section>
+        </div>
+      </header>
+
+      <div className="upload-history">
+        <h1 className="project-name">阅读记录</h1>
+        <div id="timeline">
+          <div className="timeline-item">
+            <div className="timeline-icon">
+
+
+            </div>
+            <div className="timeline-content">
+              <h2>20170701 Capital Market</h2>
+              <p>
+                Apple Answer
+              </p>
+              <a href="#" className="btn">查看</a>
+            </div>
+          </div>
+
+          <div className="timeline-item">
+            <div className="timeline-icon">
+
+
+            </div>
+            <div className="timeline-content right">
+              <h2>LOREM IPSUM DOLOR</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, facilis quo. Maiores magnam modi ab libero praesentium blanditiis consequatur aspernatur accusantium maxime molestiae sunt ipsa.
+              </p>
+              <a href="#" className="btn">button</a>
+            </div>
+          </div>
+
+          <div className="timeline-item">
+            <div className="timeline-icon">
+
+
+            </div>
+            <div className="timeline-content">
+              <h2>LOREM IPSUM DOLOR</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, facilis quo. Maiores magnam modi ab libero praesentium blanditiis consequatur aspernatur accusantium maxime molestiae sunt ipsa.
+              </p>
+              <a href="#" className="btn">button</a>
+            </div>
+          </div>
+
+
+          <div className="timeline-item">
+            <div className="timeline-icon">
+
+
+            </div>
+            <div className="timeline-content right">
+              <h2>LOREM IPSUM DOLOR</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, facilis quo. Maiores magnam modi ab libero praesentium blanditiis consequatur aspernatur accusantium maxime molestiae sunt ipsa.
+              </p>
+              <a href="#" className="btn">button</a>
+            </div>
+          </div>
+
+
+          <div className="timeline-item">
+            <div className="timeline-icon">
+
+
+            </div>
+            <div className="timeline-content">
+              <h2>LOREM IPSUM DOLOR</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, facilis quo. Maiores magnam modi ab libero praesentium blanditiis consequatur aspernatur accusantium maxime molestiae sunt ipsa.
+              </p>
+              <a href="#" className="btn">button</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
     </div>);
   }
 }
