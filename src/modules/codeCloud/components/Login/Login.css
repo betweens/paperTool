@@ -1,5 +1,5 @@
 body {
-  background: url(https://newevolutiondesigns.com/images/freebies/los-angeles-beach.jpg) no-repeat fixed;
+  background: url(./../../public/images/los-angeles-beach.jpg) no-repeat fixed;
   background-size: cover;
   background-position: 50%;
   color: #fff;
