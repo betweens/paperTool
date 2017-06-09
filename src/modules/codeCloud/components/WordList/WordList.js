@@ -41,6 +41,10 @@ class WordList extends Component {
                   <p><span>等级:</span><b>{item.wordLevel}</b></p>
                   <p><span>词频:</span><b>{item.wordFrequency}</b></p>
                 </li>*/
+
+  viewPage(paperId){
+//打开论文 URL
+  }                
   render() {
     // if (this.state.isDataReady) return null;
     const { list } = this.state;
@@ -58,7 +62,7 @@ class WordList extends Component {
     }); 
     return (<div className="flex-hrz wordList">
 
-<div className='view-paper'>查看原文</div>
+<div className='view-paper' onClick={this.viewPage.bind(this,paperId)}>查看原文</div>
  <div className="steps">
   <ul id="sortable">
 

@@ -115,7 +115,7 @@ class MyAccount extends Component {
               <p>
                 Apple Answer
               </p>
-              <div className="btn" onClick="this.viewWordList.bind(this,item.attributes.objectId)">查看</div>
+              <div className="btn" onClick={this.viewWordList.bind(this,item.attributes.objectId)}>查看</div>
             </div>
           </div>
         )
