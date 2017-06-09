@@ -11,6 +11,7 @@ class MyAccount extends Component {
     this.userId = '';
     this.uploadFile = this.uploadFile.bind(this);
     this.logOutFn = this.logOutFn.bind(this);
+    this.viewWordList=this.viewWordList.bind(this);
   }
   componentWillMount() {
     const isLogin = userModel.getCurrentUser();
@@ -81,26 +82,67 @@ class MyAccount extends Component {
     userModel.logOut();
     this.props.history.push('login');
   }
+
+  viewWordList(objectId){
+    this.props.history.push('wordList');//传入objectId
+  }
   render() {
     if (this.state.isDataReady) return null;
     const {
       wordLists = [],
       username,
     } = this.state;
-    const list = wordLists.map((item) => {
-      const itemData = item.attributes.wordList;
-      const liItem = itemData.map((value, i) => {
-      return (<li>
-        <p><span>单词:</span><b>{value.word}</b></p>
-        <p><span>释义:</span><b>{value.translation}</b></p>
-        <p><span>等级:</span><b>{value.wordLevel}</b></p>
-        <p><span>词频:</span><b>{value.wordFrequency}</b></p>
-        </li>)     
-      });
-      return liItem;
+    const list = wordLists.map((item,index) => {
+      // const itemData = item.attributes.wordList;
+      // const liItem = itemData.map((value, i) => {
+      // return (<li>
+      //   <p><span>单词:</span><b>{value.word}</b></p>
+      //   <p><span>释义:</span><b>{value.translation}</b></p>
+      //   <p><span>等级:</span><b>{value.wordLevel}</b></p>
+      //   <p><span>词频:</span><b>{value.wordFrequency}</b></p>
+      //   </li>)     
+      // });
+      // return liItem;
+      if(index%2==0){
+        return(          
+          <div className="timeline-item">
+            <div className="timeline-icon">
+
+
+            </div>
+            <div className="timeline-content">
+              <h2>{item.attributes.createdAt}</h2>
+              <p>
+                Apple Answer
+              </p>
+              <div className="btn" onClick="this.viewWordList.bind(this,item.attributes.objectId)">查看</div>
+            </div>
+          </div>
+        )
+      }else{
+        return(
+
+
+          <div className="timeline-item">
+            <div className="timeline-icon">
+
+
+            </div>
+            <div className="timeline-content right">
+              <h2>{item.attributes.createdAt}</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, facilis quo. Maiores magnam modi ab libero praesentium blanditiis consequatur aspernatur accusantium maxime molestiae sunt ipsa.
+              </p>
+              <div className="btn" onClick="this.viewWordList.bind(this,item.attributes.objectId)">查看</div>
+            </div>
+          </div>
+
+        )
+      }
     });
+    // <div className="wordLists"><ul>{list}</ul></div>
     return (<div className="myAccount">
-      <div className="wordLists"><ul>{list}</ul></div>
+      
  
 
 
@@ -121,6 +163,7 @@ class MyAccount extends Component {
       <div className="upload-history">
         <h1 className="project-name">阅读记录</h1>
         <div id="timeline">
+          {list}
           <div className="timeline-item">
             <div className="timeline-icon">
 
