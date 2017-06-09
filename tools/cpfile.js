@@ -14,43 +14,43 @@ if (!fs.existsSync('./dist/')) fs.mkdirSync('./dist/',function(){ console.log('.
 
 // 删除目录下的文件
 del('./dist/*', { dryRun: true }).then(paths => { console.log('删除文件目录:\n', paths.join('\n')); });
-const folder = __dirname+'/src/modules';
+/*const folder = __dirname+'/src/modules';
 // 查找模块数
 const  FolderNames = readFolderNamesSync(folder.replace(/tools\//, ''));
  
 console.log(FolderNames);
-
-for (var i=0; i< FolderNames.length; i++) {
-  if (!fs.existsSync('./dist/'+FolderNames[i]+'/')) {
-    fs.mkdirSync('./dist/'+FolderNames[i],function(){ console.log('./dist/'+FolderNames[i]+':----创建成功'); });  
-  }
-
-  if (!fs.existsSync('./dist/'+FolderNames[i]+'/libs/')) {
-    fs.mkdirSync('./dist/'+FolderNames[i]+'/libs/',function(){ console.log('./dist/'+FolderNames[i]+'libs/:----创建成功'); });  
-  }
-
-  // 定义复制目录
-  var destination = './dist/'+FolderNames[i]+'/libs/';
-  // 复制react.min.js
-  ncp(soruceReact, `${destination}react.min.js`, function (err) {
-   if (err) return console.error(err);
-   console.log('复制react.min.js成功');
-  });
-
-  // 复制 react-dom.min.js
-  ncp(soruceReactDom, `${destination}react-dom.min.js`, function (err) {
-   if (err) {
-     return console.error(err);
-   }
-    console.log('复制react-dom.min.js成功');
-  });
-
-  // 复制 react-router-dom.min.js
-  ncp(soruceReactRouter, `${destination}react-router-dom.min.js`, function (err) {
-   if (err) return console.error(err);
-    console.log('复制react-router-dom.min.js成功');
-  });
+*/
+ 
+if (!fs.existsSync('./dist/codeCloud/')) {
+  fs.mkdirSync('./dist/codeCloud',function(){ console.log('./dist/codeCloud:----创建成功'); });  
 }
+
+if (!fs.existsSync('./dist/codeCloud/libs/')) {
+  fs.mkdirSync('./dist/codeCloud/libs/',function(){ console.log('./dist/codeCloud/libs/:----创建成功'); });  
+}
+
+// 定义复制目录
+var destination = './dist/codeCloud/libs/';
+// 复制react.min.js
+ncp(soruceReact, `${destination}react.min.js`, function (err) {
+ if (err) return console.error(err);
+ console.log('复制react.min.js成功');
+});
+
+// 复制 react-dom.min.js
+ncp(soruceReactDom, `${destination}react-dom.min.js`, function (err) {
+ if (err) {
+   return console.error(err);
+ }
+  console.log('复制react-dom.min.js成功');
+});
+
+// 复制 react-router-dom.min.js
+ncp(soruceReactRouter, `${destination}react-router-dom.min.js`, function (err) {
+ if (err) return console.error(err);
+  console.log('复制react-router-dom.min.js成功');
+});
+ 
  
 
 
