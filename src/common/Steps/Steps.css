@@ -1,0 +1,105 @@
+.steps {
+
+  background: #1abc9c;
+  font-family: sans-serif;
+  width: 500px;
+  margin: 80px auto;
+
+  h1{
+    color: #fff;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 100;
+  }
+
+  .ui-sortable-placeholder{
+    border: 1px dotted #fff;
+    padding: 30px 20px;
+    position: relative;
+  }
+
+  .ui-sortable-placeholder:after{
+    content: "Place me here. Pretty Please  :3";
+    position: absolute;
+    top: 30%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    color: #fff;
+    text-align: center;
+  }
+
+
+  label{
+    background: #34495E;
+    height: 100px;
+    width: 100%;
+    display: block;
+    border-bottom: 1px solid #2C3E50;
+    color: #fff;
+    text-transform: capitalize;
+    font-weight: 900;
+    font-size: 11px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.7s ease;
+    position: relative;
+    padding: 15px 5px 5px 70px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+  }
+
+
+  label h2 span{
+    display: block;
+    font-size: 12px;
+    text-transform: capitalize;
+    font-weight: normal;
+    color: #bdc3c7;
+  }
+
+  label:before{
+    content:"";
+    width: 19px;
+    height: 19px;
+    border: 1px solid #416282;
+    display: block;
+    position: absolute;
+    border-radius: 100%;
+    left: 20px;
+    top: 30%;
+    transition: border 0.7s ease;
+    z-index: 9999;
+  }
+
+  label:after{
+    content: "";
+    width: 60px;
+    height: 100px;
+    background: #2C3E50;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  li:nth-child(n) label{
+    border-right: 8px solid #f87c85;
+  }
+
+  li:nth-child(2n) label{
+    border-right: 8px solid #feb47f;
+  }
+
+  li:nth-child(3n) label{
+    border-right: 8px solid #3498db;
+  }
+
+  li:nth-child(4n) label{
+    border-right: 8px solid #b985ea;
+  }
+
+  li:nth-child(5n) label{
+    border-right: 8px solid #43d6b0;
+  }
+}

@@ -54,7 +54,7 @@ const config = {
         loader: 'url-loader',
         options: {
           limit: 1024,
-          name: 'images/[name][hash].[ext]',
+          name: '../images/[name][hash].[ext]',
         },
       }
 	  ]
