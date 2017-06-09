@@ -56,12 +56,9 @@ class WordList extends Component {
 
 
     }); 
-    return (<div className="wordList">
+    return (<div className="flex-hrz wordList">
 
-      <ul></ul>
-
-
-<div className="steps">
+ <div className="steps">
   <ul id="sortable">
 
     {li}
