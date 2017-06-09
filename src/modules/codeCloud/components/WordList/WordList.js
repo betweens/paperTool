@@ -42,11 +42,12 @@ class WordList extends Component {
       this.props.history.push('login');
       return;
     }
-    this.userId = isLogin.id;
+    
     const params = {
-      objectId: this.userId,
+      objectId: this.objectId,//当前wordList的objectId
     };
-    userModel.getWordList(params, (data) => {
+    //getThisWordList，得到当前的WordList,而不是全部的
+    userModel.getThisWordList(params, (data) => {
       if (data.length > 0) {
         
          this.setState({
@@ -88,19 +89,16 @@ class WordList extends Component {
     // if (this.state.isDataReady) return null;
     const lists = this.state.wordLists;
 
-    const list = lists.map((item,index) => {
-      const itemData = item.attributes.wordList;
-      const liItem = itemData.map((value, i) => {
-      return (
-          <li>
-            <input id='label-1' type='checkbox'/>
-            <label for='label-1'>
-              <h2>{value.word}<span>{value.translation}</span>  <span>{value.wordLevel}</span>  <span>{value.wordFrequency}</span></h2>   
-            </label>
-          </li>
-      )     
-      });
-      return liItem;
+    const itemData = lists.attributes.wordList;
+    const liItem = itemData.map((value, i) => {
+    return (
+        <li>
+          <input id='label-1' type='checkbox'/>
+          <label for='label-1'>
+            <h2>{value.word}<span>{value.translation}</span>  <span>{value.wordLevel}</span>  <span>{value.wordFrequency}</span></h2>   
+          </label>
+        </li>
+    )     
     });
     // const li = list.map((item, key) => {
     //   return (

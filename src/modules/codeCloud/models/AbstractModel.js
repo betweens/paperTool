@@ -61,6 +61,17 @@ class AbstractModel {
       fail && fail(error);
     });
   }
+
+//当前wordList,传入objectId
+  getThisWordList(params,succ,fail){
+    const query = new AV.Query('wordLists');
+    query.equalTo('objectId', params.objectId);
+    query.find().then(function (todo) {
+      succ && succ(todo);
+    }, function (error) {
+      fail && fail(error);
+    });    
+  }
   // 上传作品
   saveWordLists(params, succ, fail) {
     const WordLists = AV.Object.extend('wordLists');
