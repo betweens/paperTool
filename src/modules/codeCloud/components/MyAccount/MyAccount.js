@@ -61,6 +61,7 @@ class MyAccount extends Component {
           console.log(progress.loaded / progress.total);
         }, (file) => {
           console.log(file);
+          alert(file.attributes.url)
         }, (error) => {
           console.log(error);
         }) 
