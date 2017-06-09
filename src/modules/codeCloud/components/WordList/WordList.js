@@ -84,7 +84,7 @@ class WordList extends Component {
   //       <p><span>等级:</span><b>{value.wordLevel}</b></p>
   //       <p><span>词频:</span><b>{value.wordFrequency}</b></p>
   //       </li>              
-  render() {
+  render() {//需要访问当前上传文章的wordList
     // if (this.state.isDataReady) return null;
     const lists = this.state.wordLists;
 
