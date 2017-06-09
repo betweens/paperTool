@@ -6,7 +6,7 @@ class WordList extends Component {
   constructor(props){
     super(props)
     this.state = {
-    	isDataReady: true,
+      isDataReady: true,
     }
     this.userId = '';
   }
@@ -35,22 +35,85 @@ class WordList extends Component {
       list: listData.wordList,
     })
   }
-
+        /*<li>
+                  <p><span>单词:</span><b>{item.word}</b></p>
+                  <p><span>释义:</span><b>{item.translation}</b></p>
+                  <p><span>等级:</span><b>{item.wordLevel}</b></p>
+                  <p><span>词频:</span><b>{item.wordFrequency}</b></p>
+                </li>*/
   render() {
-  	// if (this.state.isDataReady) return null;
+    // if (this.state.isDataReady) return null;
     const { list } = this.state;
     const li = list.map((item, key) => {
       return (
-        <li>
-          <p><span>单词:</span><b>{item.word}</b></p>
-          <p><span>释义:</span><b>{item.translation}</b></p>
-          <p><span>等级:</span><b>{item.wordLevel}</b></p>
-          <p><span>词频:</span><b>{item.wordFrequency}</b></p>
-        </li>)
+          <li>
+            <input id='label-1' type='checkbox'/>
+            <label for='label-1'>
+              <h2>{item.word}<span>{item.translation}</span>  <span>{item.wordLevel}</span>  <span>{item.wordFrequency}</span></h2>   
+            </label>
+          </li>
+      )
+
+
     }); 
     return (<div className="wordList">
 
-      <ul>{li}</ul>
+      <ul></ul>
+
+
+<div className="steps">
+  <ul id="sortable">
+
+    {li}
+    <li>
+      <input id='label-2' type='checkbox' checked/>
+      <label for='label-2'>
+        <h2>Team Session <span>Lorem ipsum dolor</span></h2>   
+      </label>
+    </li>
+    
+    <li>
+      <input id='label-3' type='checkbox'/>
+      <label for='label-3'>
+        <h2>Watch Movie <span>Lorem ipsum dolor</span></h2>   
+      </label>
+    </li>
+    
+    <li>
+    <input id='label-4' type='checkbox'/>
+     <label for='label-4'>
+        <h2>Date with babe <span>Lorem ipsum dolor</span></h2>   
+      </label>
+    </li>
+    
+    <li>
+     <input id='label-5' type='checkbox'/>
+     <label for='label-5'>
+        <h2>Jogging at Ayala<span>Lorem ipsum dolor</span></h2>   
+      </label>
+    </li>
+
+    <li>
+     <input id='label-5' type='checkbox'/>
+     <label for='label-5'>
+        <h2>Jogging at Ayala<span>Lorem ipsum dolor</span></h2>   
+      </label>
+    </li>
+
+
+    <li>
+     <input id='label-5' type='checkbox'/>
+     <label for='label-5'>
+        <h2>Jogging at Ayala<span>Lorem ipsum dolor</span></h2>   
+      </label>
+    </li>
+    
+  </ul>
+</div>
+
+
+
+
 
 
 
@@ -132,6 +195,7 @@ class WordList extends Component {
       </li>
     </ul>
   </div>
+
     </div>);
   }
 }
