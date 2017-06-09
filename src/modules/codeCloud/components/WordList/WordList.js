@@ -31,9 +31,39 @@ class WordList extends Component {
       }]
     }
 
+
+
     this.setState({
       list: listData.wordList,
     })
+
+    const isLogin = userModel.getCurrentUser();
+    if (!isLogin) {
+      this.props.history.push('login');
+      return;
+    }
+    this.userId = isLogin.id;
+    const params = {
+      objectId: this.userId,
+    };
+    userModel.getWordList(params, (data) => {
+      if (data.length > 0) {
+        
+         this.setState({
+          isDataReady: false,
+          username: isLogin.attributes.username,
+          wordLists: data,
+        })
+      } else {
+        this.setState({
+          isDataReady: false,
+        })
+      }
+    }, (error) => {
+      console.log(error);
+    })
+
+
   }
         /*<li>
                   <p><span>单词:</span><b>{item.word}</b></p>
@@ -44,29 +74,53 @@ class WordList extends Component {
 
   viewPage(paperId){
 //打开论文 URL
-  }                
+  }  
+
+
+
+  // <li>
+  //       <p><span>单词:</span><b>{value.word}</b></p>
+  //       <p><span>释义:</span><b>{value.translation}</b></p>
+  //       <p><span>等级:</span><b>{value.wordLevel}</b></p>
+  //       <p><span>词频:</span><b>{value.wordFrequency}</b></p>
+  //       </li>              
   render() {
     // if (this.state.isDataReady) return null;
-    const { list } = this.state;
-    const li = list.map((item, key) => {
+    const lists = this.state.wordLists;
+
+    const list = lists.map((item,index) => {
+      const itemData = item.attributes.wordList;
+      const liItem = itemData.map((value, i) => {
       return (
           <li>
             <input id='label-1' type='checkbox'/>
             <label for='label-1'>
-              <h2>{item.word}<span>{item.translation}</span>  <span>{item.wordLevel}</span>  <span>{item.wordFrequency}</span></h2>   
+              <h2>{value.word}<span>{value.translation}</span>  <span>{value.wordLevel}</span>  <span>{value.wordFrequency}</span></h2>   
             </label>
           </li>
-      )
+      )     
+      });
+      return liItem;
+    });
+    // const li = list.map((item, key) => {
+    //   return (
+    //       <li>
+    //         <input id='label-1' type='checkbox'/>
+    //         <label for='label-1'>
+    //           <h2>{item.word}<span>{item.translation}</span>  <span>{item.wordLevel}</span>  <span>{item.wordFrequency}</span></h2>   
+    //         </label>
+    //       </li>
+    //   )
 
 
-    }); 
+    // }); 
     return (<div className="flex-hrz wordList">
 
 <div className='view-paper' onClick={this.viewPage.bind(this,paperId)}>查看原文</div>
  <div className="steps">
   <ul id="sortable">
 
-    {li}
+    {list}
     <li>
       <input id='label-2' type='checkbox' checked/>
       <label for='label-2'>
