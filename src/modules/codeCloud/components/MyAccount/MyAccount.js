@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import userModel from './../../models/AbstractModel.js';
+import { Loading } from './../../../../common/index.js';
 import './MyAccount.css';
 class MyAccount extends Component {
   constructor(props){
@@ -81,7 +82,7 @@ class MyAccount extends Component {
     this.props.history.push('login');
   }
   render() {
-  	if (this.state.isDataReady) return null;
+  	if (this.state.isDataReady) return <Loading />;
     const {
       wordLists = [],
       username,

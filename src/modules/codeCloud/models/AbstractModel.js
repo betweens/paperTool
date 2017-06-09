@@ -32,7 +32,7 @@ class AbstractModel {
   }
   // 获取用户信息
   getUserInfo(userId) {
-
+    console.log('userId');
   }
   // 获取当前用户信息
   getCurrentUser() {
