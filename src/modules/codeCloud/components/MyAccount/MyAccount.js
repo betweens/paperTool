@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { Loading } from './../../../../common/index.js';
 import userModel from './../../models/AbstractModel.js';
 import './MyAccount.css';
 class MyAccount extends Component {
@@ -41,17 +42,6 @@ class MyAccount extends Component {
     })
   }
   uploadFile() {
-   /* const params = {
-      userId: this.userId,
-      show: 1,
-      paperId: 'fdfdf',
-      wordList: [{
-        "word": 'apple',
-        "translation":"苹果",
-        "wordLevel":["4","6","gre"],
-        "wordFrequency":"311/2001",   
-      }]
-    };*/
     const fileInput = ReactDOM.findDOMNode(this.refs.photoFileUpload);
       if (fileInput.files.length > 0) {
         const params ={
@@ -59,23 +49,15 @@ class MyAccount extends Component {
           name: fileInput.files[0].name
         }
         userModel.uploadFile(params, (progress) => {
-          console.log(progress.loaded / progress.total);
+          console.log(progress.loaded);
         }, (file) => {
-          console.log(file);
-          alert(file.attributes.url)
+          console.log(file.url());
+          window.localStorage.setItem('pdfUrl', file.url());
+          this.props.history.push('wordList');
         }, (error) => {
           console.log(error);
         }) 
       }
-  
-  /*  userModel.saveWordLists(params, (data) => {
-      this.setState({
-        wordList: data.attributes.wordList,
-        info: false,
-      })
-    }, (error) => {
-      console.log(error);
-    });*/
   }
   // 推出登录
   logOutFn() {
@@ -87,7 +69,7 @@ class MyAccount extends Component {
     this.props.history.push('wordList');//传入objectId
   }
   render() {
-    if (this.state.isDataReady) return null;
+    if (this.state.isDataReady) return <Loading />;
     const {
       wordLists = [],
       username,

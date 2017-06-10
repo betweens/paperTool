@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { Loading } from './../../../../common/index.js';
 import userModel from './../../models/AbstractModel.js';
 import './WordList.css';
 class WordList extends Component {
@@ -9,41 +10,16 @@ class WordList extends Component {
       isDataReady: true,
     }
     this.userId = '';
+    this.createxmlhttp = this.createxmlhttp.bind(this);
   }
   componentWillMount() {
-   const listData = {
-    "code":"0000",
-    "wordList":[{
-        "word":"apple",
-        "translation":"苹果",
-        "wordLevel":["4","6","gre"],
-        "wordFrequency":"311/2001",                 
-      }, {
-        "word":"apple",
-        "translation":"苹果",
-        "wordLevel":["4","6","gre"],
-        "wordFrequency":"311/2001",       
-      }, {
-        "word":"apple",
-        "translation":"苹果",
-        "wordLevel":["4","6","gre"],
-        "wordFrequency":"311/2001",    
-      }]
-    }
-
-
-
-    this.setState({
-      list: listData.wordList,
-    })
-
     const isLogin = userModel.getCurrentUser();
     if (!isLogin) {
       this.props.history.push('login');
       return;
     }
     
-    const params = {
+  /*  const params = {
       objectId: this.objectId,//当前wordList的objectId
     };
     //getThisWordList，得到当前的WordList,而不是全部的
@@ -62,34 +38,39 @@ class WordList extends Component {
       }
     }, (error) => {
       console.log(error);
-    })
-
-
+    })*/
+    const pdfUrl = window.localStorage.getItem('pdfUrl');
+    this.createxmlhttp(pdfUrl);
   }
-        /*<li>
-                  <p><span>单词:</span><b>{item.word}</b></p>
-                  <p><span>释义:</span><b>{item.translation}</b></p>
-                  <p><span>等级:</span><b>{item.wordLevel}</b></p>
-                  <p><span>词频:</span><b>{item.wordFrequency}</b></p>
-                </li>*/
+
+  createxmlhttp(url) {
+    const self = this;
+    const xmlhttp=new XMLHttpRequest();
+    xmlhttp.onreadystatechange=function() {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+      let resultData = xmlhttp.responseText.replace(/NaN/g,'1');
+      resultData = JSON.parse(resultData);
+      resultData = resultData.result.wordList;
+      console.log(resultData);
+      self.setState({
+        isDataReady: false,
+        wordLists: resultData,
+      });
+     }
+    }  
+    xmlhttp.open("POST","http://218.193.131.250:54321",true);
+    xmlhttp.send('p='+url);
+  }
 
   viewPage(paperId){
 //打开论文 URL
   }  
-
-
-
-  // <li>
-  //       <p><span>单词:</span><b>{value.word}</b></p>
-  //       <p><span>释义:</span><b>{value.translation}</b></p>
-  //       <p><span>等级:</span><b>{value.wordLevel}</b></p>
-  //       <p><span>词频:</span><b>{value.wordFrequency}</b></p>
-  //       </li>              
+             
   render() {//需要访问当前上传文章的wordList
-    // if (this.state.isDataReady) return null;
-    const lists = this.state.wordLists;
+    if (this.state.isDataReady) return <Loading />;
+    const itemData = this.state.wordLists;
 
-    const itemData = lists.attributes.wordList;
+    
     const liItem = itemData.map((value, i) => {
     return (
         <li>
@@ -100,156 +81,11 @@ class WordList extends Component {
         </li>
     )     
     });
-    // const li = list.map((item, key) => {
-    //   return (
-    //       <li>
-    //         <input id='label-1' type='checkbox'/>
-    //         <label for='label-1'>
-    //           <h2>{item.word}<span>{item.translation}</span>  <span>{item.wordLevel}</span>  <span>{item.wordFrequency}</span></h2>   
-    //         </label>
-    //       </li>
-    //   )
-
-
-    // }); 
     return (<div className="flex-hrz wordList">
-
-<div className='view-paper' onClick={this.viewPage.bind(this,paperId)}>查看原文</div>
- <div className="steps">
-  <ul id="sortable">
-
-    {list}
-    <li>
-      <input id='label-2' type='checkbox' checked/>
-      <label for='label-2'>
-        <h2>Team Session <span>Lorem ipsum dolor</span></h2>   
-      </label>
-    </li>
-    
-    <li>
-      <input id='label-3' type='checkbox'/>
-      <label for='label-3'>
-        <h2>Watch Movie <span>Lorem ipsum dolor</span></h2>   
-      </label>
-    </li>
-    
-    <li>
-    <input id='label-4' type='checkbox'/>
-     <label for='label-4'>
-        <h2>Date with babe <span>Lorem ipsum dolor</span></h2>   
-      </label>
-    </li>
-    
-    <li>
-     <input id='label-5' type='checkbox'/>
-     <label for='label-5'>
-        <h2>Jogging at Ayala<span>Lorem ipsum dolor</span></h2>   
-      </label>
-    </li>
-
-    <li>
-     <input id='label-5' type='checkbox'/>
-     <label for='label-5'>
-        <h2>Jogging at Ayala<span>Lorem ipsum dolor</span></h2>   
-      </label>
-    </li>
-
-
-    <li>
-     <input id='label-5' type='checkbox'/>
-     <label for='label-5'>
-        <h2>Jogging at Ayala<span>Lorem ipsum dolor</span></h2>   
-      </label>
-    </li>
-    
-  </ul>
-</div>
-
-
-
-
-
-
-
-  <div className="comments-container">
-    <h1>论文评论 <a href="http://creaticode.com"></a></h1>
-
-    <ul id="comments-list" className="comments-list">
-      <li>
-        <div className="comment-main-level">
-
-          <div className="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt="" /></div>
-
-          <div className="comment-box">
-            <div className="comment-head">
-              <h6 className="comment-name by-author"><a href="http://creaticode.com/blog">金融</a></h6>
-              <span>hace 20 minutos</span>
-              <i className="fa fa-reply"></i>
-              <i className="fa fa-heart"></i>
-            </div>
-            <div className="comment-content">
-              J金融论文
-            </div>
-          </div>
-        </div>
-
-        <ul className="comments-list reply-list">
-          <li>
-  
-            <div className="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_2_zps7de12f8b.jpg" alt="" /></div>
-        
-            <div className="comment-box">
-              <div className="comment-head">
-                <h6 className="comment-name"><a href="http://creaticode.com/blog">Lorena Rojero</a></h6>
-                <span>hace 10 minutos</span>
-                <i className="fa fa-reply"></i>
-                <i className="fa fa-heart"></i>
-              </div>
-              <div className="comment-content">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
-              </div>
-            </div>
-          </li>
-
-          <li>
-
-            <div className="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt="" /></div>
-
-            <div className="comment-box">
-              <div className="comment-head">
-                <h6 className="comment-name by-author"><a href="http://creaticode.com/blog">Agustin Ortiz</a></h6>
-                <span>hace 10 minutos</span>
-                <i className="fa fa-reply"></i>
-                <i className="fa fa-heart"></i>
-              </div>
-              <div className="comment-content">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
-              </div>
-            </div>
-          </li>
-        </ul>
-      </li>
-
-      <li>
-        <div className="comment-main-level">
-
-          <div className="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_2_zps7de12f8b.jpg" alt="" /></div>
-          <div className="comment-box">
-            <div className="comment-head">
-              <h6 className="comment-name"><a href="http://creaticode.com/blog">Lorena Rojero</a></h6>
-              <span>hace 10 minutos</span>
-              <i className="fa fa-reply"></i>
-              <i className="fa fa-heart"></i>
-            </div>
-            <div className="comment-content">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
-            </div>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </div>
-
+      <div className='view-paper' onClick={this.viewPage.bind()}>查看原文</div>
+       <div className="steps">
+        <ul id="sortable">{liItem}</ul>
+      </div>
     </div>);
   }
 }
