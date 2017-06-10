@@ -40,7 +40,13 @@ class WordList extends Component {
       console.log(error);
     })*/
     const pdfUrl = window.localStorage.getItem('pdfUrl');
-    this.createxmlhttp(pdfUrl);
+    if (pdfUrl) {
+       this.pdfUrl = pdfUrl;
+       this.createxmlhttp(pdfUrl);
+    } else {
+      alert('无法获取地址');
+    }
+   
   }
 
   createxmlhttp(url) {
@@ -48,10 +54,10 @@ class WordList extends Component {
     const xmlhttp=new XMLHttpRequest();
     xmlhttp.onreadystatechange=function() {
     if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+      window.localStorage.removeItem('pdfUrl');
       let resultData = xmlhttp.responseText.replace(/NaN/g,'1');
       resultData = JSON.parse(resultData);
       resultData = resultData.result.wordList;
-      console.log(resultData);
       self.setState({
         isDataReady: false,
         wordLists: resultData,
@@ -62,10 +68,7 @@ class WordList extends Component {
     xmlhttp.send('p='+url);
   }
 
-  viewPage(paperId){
-//打开论文 URL
-  }  
-             
+        
   render() {//需要访问当前上传文章的wordList
     if (this.state.isDataReady) return <Loading />;
     const itemData = this.state.wordLists;
@@ -81,8 +84,8 @@ class WordList extends Component {
         </li>
     )     
     });
-    return (<div className="flex-hrz wordList">
-      <div className='view-paper' onClick={this.viewPage.bind()}>查看原文</div>
+    return (<div className="wordList">
+      <h1><a href={this.pdfUrl} target="view_window">查看原文</a></h1>
        <div className="steps">
         <ul id="sortable">{liItem}</ul>
       </div>
