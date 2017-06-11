@@ -11,6 +11,7 @@ class WordList extends Component {
     }
     this.userId = '';
     this.createxmlhttp = this.createxmlhttp.bind(this);
+    this.saveWordListsFn = this.saveWordListsFn.bind(this);
   }
   componentWillMount() {
     const isLogin = userModel.getCurrentUser();
@@ -19,17 +20,31 @@ class WordList extends Component {
       return;
     }
     
-  /*  const params = {
+    const pdfUrl = window.localStorage.getItem('pdfUrl');
+    const paperId = window.localStorage.getItem('paperId');
+    if (pdfUrl) {
+       this.pdfUrl = pdfUrl;
+       this.createxmlhttp(pdfUrl);
+    } else if(paperId) {
+      this.paperId = paperId;
+      this.getWordListsFn(paperId);
+    } else {
+      alert('无法获取地址');
+    }
+   
+  }
+  getWordListsFn() {
+    const params = {
       objectId: this.objectId,//当前wordList的objectId
     };
     //getThisWordList，得到当前的WordList,而不是全部的
     userModel.getThisWordList(params, (data) => {
+       window.localStorage.removeItem('paperId');
       if (data.length > 0) {
-        
          this.setState({
           isDataReady: false,
           username: isLogin.attributes.username,
-          wordLists: data,
+          wordLists: data.attributes.wordList,
         })
       } else {
         this.setState({
@@ -38,17 +53,8 @@ class WordList extends Component {
       }
     }, (error) => {
       console.log(error);
-    })*/
-    const pdfUrl = window.localStorage.getItem('pdfUrl');
-    if (pdfUrl) {
-       this.pdfUrl = pdfUrl;
-       this.createxmlhttp(pdfUrl);
-    } else {
-      alert('无法获取地址');
-    }
-   
+    })
   }
-
   createxmlhttp(url) {
     const self = this;
     const xmlhttp=new XMLHttpRequest();
@@ -57,6 +63,7 @@ class WordList extends Component {
       window.localStorage.removeItem('pdfUrl');
       let resultData = xmlhttp.responseText.replace(/NaN/g,'1');
       resultData = JSON.parse(resultData);
+      console.log(resultData);
       resultData = resultData.result.wordList;
       self.setState({
         isDataReady: false,
@@ -67,17 +74,41 @@ class WordList extends Component {
     xmlhttp.open("POST","http://218.193.131.250:54321",true);
     xmlhttp.send('p='+url);
   }
-
-        
+ 
+  //保存单词
+  saveWordListsFn() {
+    const params = {
+      userId: this.userId,
+      show: true,
+      paperId: this.paperId,
+      wordList: this.state.wordLists,
+    };
+    userModel.saveWordLists(params, (data) => {
+      console.log(data);
+    }, (error)=> {
+      console.log(error);
+    });
+  }
+  // 找到对应的单词
+  findWord(index) {
+    if(index !== '') {
+      const temp = this.state.wordLists[index];
+      temp.familiar = true;
+    }
+  }   
   render() {//需要访问当前上传文章的wordList
     if (this.state.isDataReady) return <Loading />;
     const itemData = this.state.wordLists;
+    const dataLength = itemData.length;
 
-    
+   /* for(var i=0,len = dataLength;i<len;i+=10){
+      result.push(data.slice(i,i+3));
+    }*/
     const liItem = itemData.map((value, i) => {
+      const checked = value.familiar
     return (
-        <li>
-          <input id='label-1' type='checkbox'/>
+        <li onClick={() => { this.findWord(i); }}>
+          <input id='label-1' type='checkbox' checked={checked}/>
           <label for='label-1'>
             <h2>{value.word}<span>{value.translation}</span>  <span>{value.wordLevel}</span>  <span>{value.wordFrequency}</span></h2>   
           </label>
@@ -85,7 +116,7 @@ class WordList extends Component {
     )     
     });
     return (<div className="wordList">
-      <h1><a href={this.pdfUrl} target="view_window">查看原文</a></h1>
+      <h1><a href={this.pdfUrl} target="view_window">查看原文</a><span onClick={this.saveWordListsFn}>保存</span></h1>
        <div className="steps">
         <ul id="sortable">{liItem}</ul>
       </div>

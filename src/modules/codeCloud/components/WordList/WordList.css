@@ -15,7 +15,7 @@
   font-family: sans-serif;
 
 h1{
-  color: #fff;
+  color: green;
   text-align: center;
   font-size: 40px;
   font-weight: 100;
@@ -27,12 +27,12 @@ ul{
   padding: 0;
 }
 
-
-
-
-
 input[type=checkbox] {
   display: none;
+}
+
+input[type=checkbox]:checked ~ label {
+  background: red;
 }
 
 .ui-sortable-placeholder{
