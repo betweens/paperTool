@@ -20,7 +20,7 @@ const config = {
   output: {
   	path: path.resolve(__dirname, "dist/codeCloud"),
   	filename: "js/[name].js",
-  	publicPath: "../",
+  	// publicPath: "../",
     // library: "MyLibrary",
   	// libraryTarget: "jsonp",
   },
@@ -49,16 +49,19 @@ const config = {
           }]
 	    	})
 	    }, {
-         // 小于2KB的图片使用base64内联
-        test: /\.(png|jpg|gif)$/,
-        loader: 'url-loader',
-        options: {
-          limit: 1024,
-          name: 'images/[name][hash].[ext]',
-        },
+        test: /\.(png|jpg|jpeg|gif)$/,
+        include: [
+          path.resolve(__dirname, './src'),
+        ],
+        loader: 'url-relative-loader',
+        query: {
+          name: 'images/lu.[hash].[ext]',
+          limit: 1024, // 小于2KB的图片使用base64内联
+          relativePath: '../images/lu.[hash].[ext]'
+        }
       }, {
         test: /\.(eot|ttf|wav|mp3|svg|woff|woff2)$/,
-        loader: 'file-loader?name=fonts/[name].[ext]',
+        loader: 'file-relative-loader?name=fonts/[name].[ext]',
       }
 	  ]
 	},
@@ -86,7 +89,7 @@ const config = {
   },
   plugins: [
 	  new HtmlWebpackPlugin({
-	  	title: '论文工具',
+	  	title: 'fuck',
 	  	template: path.resolve(__dirname, './src/modules/codeCloud/index.html'),
 	  }),
 	  new ExtractTextPlugin("css/styles.css"),

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { 
   Loading,
   NavBar,
+  WordLine,
 } from './../../../../common/index.js';
 import userModel from './../../models/AbstractModel.js';
 import './MyAccount.css';
@@ -74,22 +75,24 @@ class MyAccount extends Component {
   }
   // 查看属于此论文的单词列表
   viewWordList(objectId){
-    this.props.history.push('wordList');//传入objectId
+    this.props.history.push('wordList11');//传入objectId
   }
   render() {
     // if (this.state.isDataReady) return <Loading />;
+    console.log('WordLine');
     const navBarData = {
       title: '论文助手',
       label: {
         text: '退出登陆',
         callback: () => {
-          console.log('fuck');
+          console.log('fuck12');
         }
       },
       imgUrl: 'http://www.sucaijishi.com/uploadfile/2014/0524/20140524012047988.png',
     }
     return (<div className="myAccount">
       <NavBar {...navBarData} />
+      <WordLine />
     </div>);
   }
 }

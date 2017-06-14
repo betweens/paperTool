@@ -6,9 +6,8 @@ const WordLine = (props) => {
 		label,
 		imgUrl,
 	} = props;*/
-  return(
-  <ul className ="WordLine">
-     
+  return(<ul className ="WordLine">
+    <li>111</li>
   </ul>
   )
 }
