@@ -152,9 +152,17 @@ class MyAccount extends Component {
         }
       }],
     }];
-    return (<div className="myAccount">
+    return (<div className="my-account">
       <NavBar {...navBarData} />
-      <WordLine items={wordLineData} />
+      <section className="flex-hrz">
+        <div className="left">
+          <div className="user-car">
+          <h1>孙和</h1>
+          <p><i className="iconfont icon-coordinates_fill"></i></p>
+          </div>
+        </div>
+        <div className="flex-full right"><WordLine items={wordLineData} /></div>
+      </section>
     </div>);
   }
 }

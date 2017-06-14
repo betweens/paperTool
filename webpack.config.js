@@ -61,7 +61,14 @@ const config = {
         }
       }, {
         test: /\.(eot|ttf|wav|mp3|svg|woff|woff2)$/,
-        loader: 'file-relative-loader?name=fonts/[name].[ext]',
+        include: [
+          path.resolve(__dirname, './src'),
+        ],
+        loader: 'file-relative-loader',
+        query: {
+          name: 'name=fonts/[name].[ext]',
+          relativePath: '../fonts/fonts/[name].[ext]'
+        }
       }
 	  ]
 	},
