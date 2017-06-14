@@ -1,0 +1,30 @@
+.navBar {
+  padding: 0 4rem;
+  height: 5rem;
+  justify-content: space-between;
+  align-items:center;
+  background: -webkit-linear-gradient(top,#2b7e92,#295f75);
+  overflow: hidden;
+  
+  .title {
+    font-size: 2.8rem;
+  }
+  
+ 
+  .user-header {
+    display: inline-block;
+    width: 3.5rem;
+    cursor: pointer;
+  }
+
+  span {
+    margin-right: 1rem;
+    font-size: 1.6rem;
+    vertical-align: middle;
+    cursor: pointer;
+  }
+
+  span:active {
+    color: red;
+  }
+}

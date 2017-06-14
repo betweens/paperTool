@@ -14,6 +14,7 @@ html,
 body {
   position: relative;
   height: 100%;
+  font-size: 10px;
   user-select: none;
 }
 
@@ -121,3 +122,4 @@ iframe {
   height: 100%;
   border: 1px solid #CCC;
 }
+@import "../font/iconfont.css";

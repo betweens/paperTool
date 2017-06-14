@@ -52,8 +52,8 @@ class AbstractModel {
     }));
   }
   // 作品表
-  getWordList(params, succ, fail) {
-    const query = new AV.Query('wordLists');
+  getPaperList(params, succ, fail) {
+    const query = new AV.Query('papers');
     query.equalTo('userId', params.objectId);
     query.find().then(function (todo) {
       succ && succ(todo);

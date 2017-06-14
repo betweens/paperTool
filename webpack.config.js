@@ -20,12 +20,12 @@ const config = {
   output: {
   	path: path.resolve(__dirname, "dist/codeCloud"),
   	filename: "js/[name].js",
-  	// publicPath: "/assets/",
+  	publicPath: "../",
     // library: "MyLibrary",
   	// libraryTarget: "jsonp",
   },
   module: {
-    noParse: /react-dom|react|react-router-dom|superagent/,
+    noParse: /react-dom|react|react-router-dom/,
 	  loaders: [
 	    {
 	      test: /\.js$/,
@@ -54,8 +54,11 @@ const config = {
         loader: 'url-loader',
         options: {
           limit: 1024,
-          name: '../images/[name][hash].[ext]',
+          name: 'images/[name][hash].[ext]',
         },
+      }, {
+        test: /\.(eot|ttf|wav|mp3|svg|woff|woff2)$/,
+        loader: 'file-loader?name=fonts/[name].[ext]',
       }
 	  ]
 	},
