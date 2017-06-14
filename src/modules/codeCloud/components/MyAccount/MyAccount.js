@@ -79,7 +79,7 @@ class MyAccount extends Component {
   }
   render() {
     // if (this.state.isDataReady) return <Loading />;
-    console.log('WordLine');
+    // 头部数据
     const navBarData = {
       title: '论文助手',
       label: {
@@ -90,10 +90,73 @@ class MyAccount extends Component {
       },
       imgUrl: 'http://www.sucaijishi.com/uploadfile/2014/0524/20140524012047988.png',
     }
+    // 论文列表
+    const wordLineData = [{
+      time: '16小时前',
+      paperTitle: 'Apple Pen',
+      content: 'Apple penApple penApple penApple penApple penApple penApple penApple Apple penApple penApple penApple penApple penApple penApple penApple',
+      btns: [{
+        label: '查看全文',
+        callback: () => {
+          console.log('查看全文');
+        }
+      }, {
+        label: '查看单词',
+        callback: () => {
+          console.log('查看单词');
+        }
+      }],
+    }, {
+      time: '16小时前',
+      paperTitle: 'Apple Pen',
+      content: 'Apple penApple penApple penApple penApple penApple penApple penApple Apple penApple penApple penApple penApple penApple penApple penApple',
+      btns: [{
+        label: '查看全文',
+        callback: () => {
+          console.log('查看全文');
+        }
+      }, {
+        label: '查看单词',
+        callback: () => {
+          console.log('查看单词');
+        }
+      }],
+    }, {
+      time: '16小时前',
+      paperTitle: 'Apple Pen',
+      content: 'Apple penApple penApple penApple penApple penApple penApple penApple Apple penApple penApple penApple penApple penApple penApple penApple',
+      btns: [{
+        label: '查看全文',
+        callback: () => {
+          console.log('查看全文');
+        }
+      }, {
+        label: '查看单词',
+        callback: () => {
+          console.log('查看单词');
+        }
+      }],
+    }, {
+      time: '16小时前',
+      paperTitle: 'Apple Pen',
+      content: 'Apple penApple penApple penApple penApple penApple penApple penApple Apple penApple penApple penApple penApple penApple penApple penApple',
+      btns: [{
+        label: '查看全文',
+        callback: () => {
+          console.log('查看全文');
+        }
+      }, {
+        label: '查看单词',
+        callback: () => {
+          console.log('查看单词');
+        }
+      }],
+    }];
     return (<div className="myAccount">
       <NavBar {...navBarData} />
-      <WordLine />
+      <WordLine items={wordLineData} />
     </div>);
   }
 }
+
 export default MyAccount;
