@@ -12,14 +12,17 @@ class WordList extends Component {
     this.userId = '';
     this.createxmlhttp = this.createxmlhttp.bind(this);
     this.saveWordListsFn = this.saveWordListsFn.bind(this);
+    this.initPagedata = this.initPagedata.bind(this);
   }
   componentWillMount() {
+    // this.initPagedata();
+  }
+  initPagedata() {
     const isLogin = userModel.getCurrentUser();
     if (!isLogin) {
       this.props.history.push('login');
       return;
     }
-    
     const pdfUrl = window.localStorage.getItem('pdfUrl');
     const paperId = window.localStorage.getItem('paperId');
     if (pdfUrl) {
@@ -31,7 +34,6 @@ class WordList extends Component {
     } else {
       alert('无法获取地址');
     }
-   
   }
   getWordListsFn() {
     const params = {
@@ -96,30 +98,11 @@ class WordList extends Component {
       temp.familiar = true;
     }
   }   
-  render() {//需要访问当前上传文章的wordList
-    if (this.state.isDataReady) return <Loading />;
-    const itemData = this.state.wordLists;
-    const dataLength = itemData.length;
-
-   /* for(var i=0,len = dataLength;i<len;i+=10){
-      result.push(data.slice(i,i+3));
-    }*/
-    const liItem = itemData.map((value, i) => {
-      const checked = value.familiar
-    return (
-        <li onClick={() => { this.findWord(i); }}>
-          <input id='label-1' type='checkbox' checked={checked}/>
-          <label for='label-1'>
-            <h2>{value.word}<span>{value.translation}</span>  <span>{value.wordLevel}</span>  <span>{value.wordFrequency}</span></h2>   
-          </label>
-        </li>
-    )     
-    });
+  render() {
+    //需要访问当前上传文章的wordList
+    // if (this.state.isDataReady) return <Loading />;
     return (<div className="wordList">
-      <h1><a href={this.pdfUrl} target="view_window">查看原文</a><span onClick={this.saveWordListsFn}>保存</span></h1>
-       <div className="steps">
-        <ul id="sortable">{liItem}</ul>
-      </div>
+       
     </div>);
   }
 }

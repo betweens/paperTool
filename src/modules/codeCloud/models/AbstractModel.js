@@ -51,7 +51,7 @@ class AbstractModel {
         fail && fail(error);
     }));
   }
-  // 作品表
+  // 获取上文件列表
   getPaperList(params, succ, fail) {
     const query = new AV.Query('papers');
     query.equalTo('userId', params.objectId);
@@ -61,8 +61,20 @@ class AbstractModel {
       fail && fail(error);
     });
   }
-
-//当前wordList,传入objectId
+  // 保存上传文件
+  savePaper(params,succ,fail) {
+    const objPapers = AV.Object.extend('papers');
+    const todoPapers= new objPapers();
+    todoPapers.set('userId', params.userId);
+    todoPapers.set('fileUrl', params.fileUrl);
+    todoPapers.set('paperTitle', params.paperTitle);
+    todoPapers.save().then(function(todo) {
+      succ && succ(todo);
+    }, function(error) {
+      fail && fail(error);
+    });
+  }
+  //当前wordList,传入objectId
   getThisWordList(params,succ,fail){
     const query = new AV.Query('wordLists');
     query.equalTo('objectId', params.objectId);
@@ -72,7 +84,7 @@ class AbstractModel {
       fail && fail(error);
     });    
   }
-  // 上传作品
+  // 保存单词列表
   saveWordLists(params, succ, fail) {
     const WordLists = AV.Object.extend('wordLists');
     const todoWordLists= new WordLists();
@@ -80,7 +92,7 @@ class AbstractModel {
     todoWordLists.set('show', params.show);
     todoWordLists.set('paperId', params.paperId);
     todoWordLists.set('wordList', params.wordList);
-    todoWordLists.save().then(function (todo) {
+    todoWordLists.save().then(function(todo) {
       succ && succ(todo);
     }, function (error) {
       fail && fail(error);

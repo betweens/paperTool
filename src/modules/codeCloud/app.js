@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom';
 import './public/style.js';
 import Login from './components/Login';
-import Register from './components/Register';
 import MyAccount from './components/MyAccount';
 import WordList from './components/WordList';
 //说明：login 和 register之后，都进入myAccount,myAccount查wordLists表，并关联File表，列出当前用户的所有wordList和每个wordList的PDF链接
@@ -18,7 +17,6 @@ const BasicExample = () => (
     <div className="container-fluid">
       <Route exact path="/" component={Login}/>
       <Route path="/login" component={Login} />
-      <Route path="/register" component={Register} />
       <Route path="/myAccount" component={MyAccount} />
       <Route path="/wordList" component={WordList} />
     </div>
