@@ -66,8 +66,8 @@ const config = {
         ],
         loader: 'file-relative-loader',
         query: {
-          name: 'name=fonts/[name].[ext]',
-          relativePath: '../fonts/fonts/[name].[ext]'
+          name: 'fonts/[name].[ext]',
+          relativePath: '../fonts/[name].[ext]'
         }
       }
 	  ]
@@ -95,6 +95,7 @@ const config = {
     port: 5000,
   },
   plugins: [
+    new webpack.optimize.OccurrenceOrderPlugin(),
 	  new HtmlWebpackPlugin({
 	  	title: 'fuck',
 	  	template: path.resolve(__dirname, './src/modules/codeCloud/index.html'),
