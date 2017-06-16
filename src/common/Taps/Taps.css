@@ -1,0 +1,17 @@
+.Taps {
+  text-align: center;
+  line-height: 40px;
+  font-size: 16px;
+  border: 1px solid #1a7d91;
+  background: #e7ebec;
+  
+  p {
+    color: #218ba1;
+    border-left: 1px solid #1a7d91;
+  }
+
+  .active {
+    color: #fff;
+    background: #1a7d91;
+  }
+}

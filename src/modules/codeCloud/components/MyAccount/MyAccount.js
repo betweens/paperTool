@@ -12,6 +12,7 @@ class MyAccount extends Component {
     super(props)
     this.state = {
       isDataReady: true,
+      isShowloading: false,
       fileName: '',
     }
     this.userId = '';
@@ -20,6 +21,8 @@ class MyAccount extends Component {
     this.viewWordList = this.viewWordList.bind(this);
     this.getPaperList = this.getPaperList.bind(this);
     this.changeInput = this.changeInput.bind(this);
+    this.createxmlhttp = this.createxmlhttp.bind(this);
+    this.saveWordListsFn = this.saveWordListsFn.bind(this);
   }
   componentWillMount() {
     this.getPaperList();
@@ -36,9 +39,7 @@ class MyAccount extends Component {
       objectId: this.userId,
     };
     userModel.getPaperList(params, (data) => {
-
       if (data.length > 0) {
-              console.log(data);
          this.setState({
           isDataReady: false,
           username: isLogin.attributes.username,
@@ -55,7 +56,9 @@ class MyAccount extends Component {
   }
   // 上传论文
   uploadFile() {
-    this.setState({isDataReady: true });
+    this.setState({
+      isShowloading: true,
+    });
     const fileInput = ReactDOM.findDOMNode(this.refs.paperFile);
     if (fileInput.files.length > 0) {
       const params ={
@@ -79,9 +82,41 @@ class MyAccount extends Component {
       fileUrl,
     };
     userModel.savePaper(params, (data) => {
-      window.localStorage.setItem('pdfUrl', fileUrl);
-      //this.props.history.push('wordList');
+      this.paperId = data.id;
+      this.createxmlhttp(fileUrl);
     },(error) => {
+      console.log(error);
+    });
+  }
+  // 请求翻译接口
+  createxmlhttp(url) {
+    const self = this;
+    const xmlhttp=new XMLHttpRequest();
+    xmlhttp.onreadystatechange=function() {
+      if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+        let resultData = xmlhttp.responseText.replace(/NaN/g,'1'); //JSON.parse(xmlhttp.responseText)
+         //xmlhttp.responseText.replace(/NaN/g,'1');
+        window.localStorage.setItem('wordList', resultData);
+        resultData = JSON.parse(resultData);
+        resultData = resultData.result.wordList;
+        self.saveWordListsFn(resultData);
+      }
+    }  
+    xmlhttp.open("POST","http://218.193.131.250:54321",true);
+    xmlhttp.send('p='+url);
+  }
+  // 保存单词
+  saveWordListsFn(wordList) {
+    const params = {
+      userId: this.userId,
+      show: true,
+      paperId: this.paperId,
+      wordList,
+    };
+    this.savPaperId(this.paperId);
+    userModel.saveWordLists(params, (data) => {
+      this.props.history.push('myWordList');
+    }, (error)=> {
       console.log(error);
     });
   }
@@ -92,7 +127,12 @@ class MyAccount extends Component {
   }
   // 查看属于此论文的单词列表
   viewWordList(objectId){
-    this.props.history.push('wordList11');//传入objectId
+    this.savPaperId(objectId);
+    this.props.history.push('myWordList');//传入objectId
+  }
+  // 存储paperId
+  savPaperId(id) {
+    window.localStorage.setItem('paperId', id);
   }
   // 选择文件事件
   changeInput(e) {
@@ -145,6 +185,7 @@ class MyAccount extends Component {
       fileName,
       username,
       wordLists = [],
+      isShowloading,
     } = this.state;
     // 头部数据
     const navBarData = {
@@ -195,6 +236,7 @@ class MyAccount extends Component {
         </div>
         <div className="flex-full right"><WordLine items={wordLineData} /></div>
       </section>
+      {isShowloading ? <Loading /> : null}
     </div>);
   }
 }

@@ -77,8 +77,8 @@ class AbstractModel {
   //当前wordList,传入objectId
   getThisWordList(params,succ,fail){
     const query = new AV.Query('wordLists');
-    query.equalTo('objectId', params.objectId);
-    query.find().then(function (todo) {
+    query.equalTo('paperId', params.paperId);
+    query.first().then(function (todo) {
       succ && succ(todo);
     }, function (error) {
       fail && fail(error);
