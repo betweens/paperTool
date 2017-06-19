@@ -115,6 +115,7 @@ class MyAccount extends Component {
     };
     this.savPaperId(this.paperId);
     userModel.saveWordLists(params, (data) => {
+      window.localStorage.setItem('WordListsId', data.id);
       this.props.history.push('myWordList');
     }, (error)=> {
       console.log(error);

@@ -19,7 +19,6 @@ class Taps  extends Component {
     this.setState({
       active: index,
     });
-
     if (this.props.callBack) {
       this.props.callBack(index);
     }

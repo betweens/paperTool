@@ -98,6 +98,19 @@ class AbstractModel {
       fail && fail(error);
     });
   }
+  // 更新单词列表
+  updataWordLists(params, succ, fail) {
+    const WordLists = AV.Object.createWithoutData('wordLists', params.id);
+    WordLists.set('userId', params.userId);
+    WordLists.set('show', params.show);
+    WordLists.set('paperId', params.paperId);
+    WordLists.set('wordList', params.wordList);
+    WordLists.save().then(function(todo) {
+      succ && succ(todo);
+    }, function (error) {
+      fail && fail(error);
+    });
+  }
   // 用户登出
   logOut() {
     AV.User.logOut();

@@ -12,10 +12,12 @@ class MyWordList extends Component {
     super(props)
     this.state = {
       isDataReady: true,
+      wordType: 0,
     }
     this.userId = '';
     this.saveWordListsFn = this.saveWordListsFn.bind(this);
     this.initPagedata = this.initPagedata.bind(this);
+    this.switchWordType = this.switchWordType.bind(this);
   }
   componentWillMount() {
     this.initPagedata();
@@ -64,12 +66,13 @@ class MyWordList extends Component {
       isShowloading: true,
     });
     const params = {
+      id: window.localStorage.getItem('WordListsId'),
       userId: this.userId,
       show: true,
       paperId: this.paperId,
       wordList: this.state.wordLists,
     };
-    userModel.saveWordLists(params, (data) => {
+    userModel.updataWordLists(params, (data) => {
       this.setState({
       isShowloading: false,
     });
@@ -96,6 +99,14 @@ class MyWordList extends Component {
   componentWillUnmount() {
     window.localStorage.removeItem('paperId');
     window.localStorage.removeItem('wordList');
+    window.localStorage.removeItem('WordListsId');
+  }
+  // 切换单词类型
+  switchWordType(index) {
+    if (index === this.state.wordType) return
+      this.setState({
+        wordType: index,  // 0全部  1 生词  2 熟词
+      });
   }
   render() {
     //需要访问当前上传文章的wordList
@@ -103,11 +114,12 @@ class MyWordList extends Component {
     const {
       wordLists,
       isShowloading,
+      wordType,
     } = this.state;
     const tabData = {
       label: ['全部' ,'生词', '熟词'],
-      callback: (i) => {
-        console.log(i);
+      callBack: (i) => {
+        this.switchWordType(i);
       }
     }
     // 头部数据
@@ -122,6 +134,7 @@ class MyWordList extends Component {
     // 单词数据
     const wordListData = {
       wordLists,
+      wordType: wordType,
       callback: (index) => this.findWord(index),
     }
     return (<div className="wordList">
