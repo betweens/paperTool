@@ -6,8 +6,9 @@ import {
   WordList,
   Taps,
 } from './../../../../common/index.js';
+import PageManager from './../../core/PageManager.js';
 import './MyWordList.css';
-class MyWordList extends Component {
+class MyWordList extends PageManager {
   constructor(props){
     super(props)
     this.state = {
@@ -20,7 +21,13 @@ class MyWordList extends Component {
     this.switchWordType = this.switchWordType.bind(this);
   }
   componentWillMount() {
-    this.initPagedata();
+    const {
+      paperId
+    } = this.getQuery();
+    if(paperId) {
+      this.paperId = paperId;
+      this.initPagedata();
+    }
   }
   initPagedata() {
     const isLogin = userModel.getCurrentUser();
@@ -29,7 +36,6 @@ class MyWordList extends Component {
       return;
     }
    const wordList = window.localStorage.getItem('wordList');
-   const paperId = window.localStorage.getItem('paperId');
     if (wordList) {
       let resultData = JSON.parse(wordList);
       resultData = resultData.result.wordList;
@@ -38,11 +44,8 @@ class MyWordList extends Component {
         username: isLogin.attributes.username,
         wordLists: resultData
       });
-    } else if (paperId) {
-      this.paperId = paperId;
+    } else{
       this.getWordListsFn(isLogin.attributes.username);
-    } else {
-      alert('无法获取地址');
     }
   }
   getWordListsFn(username) {

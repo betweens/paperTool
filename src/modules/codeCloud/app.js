@@ -18,7 +18,7 @@ const BasicExample = () => (
       <Route exact path="/" component={Login}/>
       <Route path="/login" component={Login} />
       <Route path="/myAccount" component={MyAccount} />
-      <Route path="/myWordList" component={MyWordList} />
+      <Route path="/myWordList/:paperId" component={MyWordList} />
     </div>
   </Router>
 )

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { 
   Loading,
@@ -6,8 +6,9 @@ import {
   WordLine,
 } from './../../../../common/index.js';
 import userModel from './../../models/AbstractModel.js';
+import PageManager from './../../core/PageManager.js';
 import './MyAccount.css';
-class MyAccount extends Component {
+class MyAccount extends PageManager {
   constructor(props){
     super(props)
     this.state = {
@@ -116,7 +117,7 @@ class MyAccount extends Component {
     this.savPaperId(this.paperId);
     userModel.saveWordLists(params, (data) => {
       window.localStorage.setItem('WordListsId', data.id);
-      this.props.history.push('myWordList');
+      this.forward('myWordList/'+ this.paperId);
     }, (error)=> {
       console.log(error);
     });
@@ -129,7 +130,7 @@ class MyAccount extends Component {
   // 查看属于此论文的单词列表
   viewWordList(objectId){
     this.savPaperId(objectId);
-    this.props.history.push('myWordList');//传入objectId
+    this.forward('myWordList/'+ objectId);
   }
   // 存储paperId
   savPaperId(id) {
