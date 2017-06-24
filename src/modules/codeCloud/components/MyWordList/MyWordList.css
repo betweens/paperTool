@@ -18,3 +18,16 @@
  
 }
 
+@media screen and (min-width:500px){
+  .wordList{
+    .Word-list,.Taps{
+        width:600px;
+        position:relative;
+        left:50%;
+        margin-left:-300px;
+    }
+
+  }
+
+}
+

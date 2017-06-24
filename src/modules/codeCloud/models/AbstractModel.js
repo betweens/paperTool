@@ -94,6 +94,15 @@ class AbstractModel {
     todoWordLists.set('wordList', params.wordList);
     todoWordLists.save().then(function(todo) {
       succ && succ(todo);
+
+    
+      const Vocabulary = AV.Object.extend('Vocabulary');
+      const VocabularyLists= new Vocabulary();
+      // VocabularyLists.set('userId', params.userId);
+      // VocabularyLists.set('show', params.show);
+      // VocabularyLists.set('paperId', params.paperId);
+      VocabularyLists.set('VocabularyWordList', params.wordList);
+      VocabularyLists.save().then(()=>{},()=>{})
     }, function (error) {
       fail && fail(error);
     });
@@ -107,6 +116,25 @@ class AbstractModel {
     WordLists.set('wordList', params.wordList);
     WordLists.save().then(function(todo) {
       succ && succ(todo);
+
+    
+      const Vocabulary = AV.Object.extend('Vocabulary');
+      const VocabularyLists= new Vocabulary();
+      // VocabularyLists.set('userId', params.userId);
+      // VocabularyLists.set('show', params.show);
+      // VocabularyLists.set('paperId', params.paperId);
+      let vocabularyFilter=[];//当前词汇表内的单词 currentVocabulary
+      params.wordList.forEach((item)=>{
+        if(!item.familiar){
+          //如果存在，在原来的单词出现次数，频率，count,上加1
+          vocabularyFilter.push(item)
+        }
+      })
+      VocabularyLists.set('VocabularyWordList', vocabularyFilter);
+      console.log(params.wordList)
+      console.log(vocabularyFilter)
+      VocabularyLists.save().then(()=>{},()=>{})
+
     }, function (error) {
       fail && fail(error);
     });
