@@ -207,7 +207,7 @@ class MyAccount extends PageManager {
       imgUrl: 'http://www.sucaijishi.com/uploadfile/2014/0524/20140524012047988.png',
     };
     // 论文列表
-    const wordLineData = [];
+    let wordLineData = [];
     wordLists.map(value => {
       const temp = {
         time: this.formatDate(value.createdAt, 'yyyy-MM-dd'),
@@ -223,6 +223,7 @@ class MyAccount extends PageManager {
       };
       wordLineData.push(temp);
     });
+    wordLineData=wordLineData.reverse()
     return (<div className="my-account">
       <NavBar {...navBarData} />
       <section className="flex-hrz">
