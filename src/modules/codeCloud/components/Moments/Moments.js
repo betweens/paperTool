@@ -227,13 +227,22 @@ class Moments extends PageManager {
       wordLineData.push(temp);
     });
     wordLineData=wordLineData.reverse()
+    // [
+    //   {
+    //     saySomething:'',
+    //     shareUrl:'',
+    //     photoUrl:'',
+    //     videoUrl:'',
+
+    //   }
+    // ]
     return (<div className="my-account">
       <NavBar {...navBarData} />
              <section className="flex-hrz">
               <div className="left">
                 <span>输入文字</span><input className="" type="text" placeholder="输入文字" ref='address'/>
-                <span>上传图片</span><input className="" type="text" placeholder="上传图片" />
                 <span>上传链接</span><input className="" type="text" placeholder="上传链接" />                
+                <span>上传图片</span><input className="" type="text" placeholder="上传图片" />
                 <span>上传视频</span><input className="" type="text" placeholder="上传视频" />
                 <div className="flex-init file-btn"><i className="iconfont icon-shangchuan1"></i><span>发布</span></div>
 
