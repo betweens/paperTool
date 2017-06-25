@@ -181,6 +181,9 @@ class MyAccount extends PageManager {
     }
     return formater;
   }
+  vocabulary(){
+    this.props.history.push('vocabulary');
+  }
   render() {
     if (this.state.isDataReady) return <Loading />;
     const {
@@ -227,6 +230,9 @@ class MyAccount extends PageManager {
           <ul className="flex-hrz paper-info">
             <li className="flex-full"><p>上传篇数</p><p className="number">1w</p></li>
             <li className="flex-full border-left-line"><p>单词数</p><p className="number">20w</p></li>
+          </ul>
+          <ul className="flex-hrz paper-info" onClick={this.vocabulary.bind(this)}>            
+            <li className="flex-full border-left-line"><p>查看生词</p><p className="number">20w</p></li>
           </ul>
           <div className="flex-hrz upload-paper">
             <label className="flex-full">
