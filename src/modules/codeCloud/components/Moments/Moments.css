@@ -1,0 +1,125 @@
+.my-account {
+  
+  section {
+    width: 960px;
+    margin: 0 auto;
+  }
+  
+  .left {
+    width: 300px;
+  }
+
+  .user-car {
+    position: relative;
+    margin: 150px  35px 0 35px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 5px;
+
+    h1 {
+      line-height: 35px;
+      text-align: center;
+      background: #218ba1;
+    }
+    
+    p {
+      margin: 20px 0;
+      justify-content: space-between;
+    }
+
+    span {
+      color: #218ba1;
+      font-size: 14px;
+    }
+  }
+
+  .user-img {
+    position: absolute;
+    left: -20px;
+    top: -30px;
+    width: 80px;
+    height: 80px;
+  }
+
+  .paper-info {
+    margin: 50px  35px 0 35px;
+    padding: 20px 0;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 5px;
+
+    p {
+      padding: 5px 0;
+      color: #218ba1;
+      font-size: 16px;
+    }
+
+
+    .number {
+      font-size: 18px;
+      color: #777777;
+    }
+
+    .border-left-line {
+      border-left: 1px solid #ccc;
+    }
+  }
+
+  .upload-paper {
+    margin: 30px  35px 0 35px;
+    background-color: #fff;
+    border-radius: 5px;
+
+    input {
+      display: none;
+    }
+
+    label {
+      font-size: 16px;
+      line-height: 30px; 
+      padding-left: 5px;
+      color: #777;
+      overflow: hidden;
+      text-overflow:ellipsis;
+      white-space: nowrap;
+    }
+  }
+  
+  .file-btn {
+    width: 100px;
+    line-height: 30px;
+    background-color: #218ba1;
+    font-size: 16px;
+    text-align: center;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    cursor: pointer;
+
+    span {
+      margin-left: 5px;
+      vertical-align: middle;
+    }
+  }
+
+  .file-btn:active {
+    background-color: #ba1218
+  }
+  .upload-paper .input-description{
+   
+  }
+  .input-selector{
+    text-align: center;
+  }
+}
+
+
+
+@media screen and (max-width:500px){
+  .my-account{
+    .left{
+        display: none;
+    }
+
+  }
+
+}

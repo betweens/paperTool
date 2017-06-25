@@ -1,0 +1,6 @@
+{
+  "name": "Moments",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./Moments.js"
+}

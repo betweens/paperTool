@@ -7,8 +7,8 @@ import {
 } from './../../../../common/index.js';
 import userModel from './../../models/AbstractModel.js';
 import PageManager from './../../core/PageManager.js';
-import './MyAccount.css';
-class MyAccount extends PageManager {
+import './Moments.css';
+class Moments extends PageManager {
   constructor(props){
     super(props)
     this.state = {
@@ -229,48 +229,22 @@ class MyAccount extends PageManager {
     wordLineData=wordLineData.reverse()
     return (<div className="my-account">
       <NavBar {...navBarData} />
-      <section className="flex-hrz">
-        <div className="left">
-          <div className="user-car">
-            <img className="user-img" src="http://www.sucaijishi.com/uploadfile/2014/0524/20140524012047988.png" />
-            <h1>{username}</h1>
-            <p className="flex-hrz"><span><i className="iconfont icon-coordinates_fill"></i>上海</span><span>复旦大学IMBA</span></p>
-            <p className="flex-hrz" onClick={this.editProfile.bind(this)}><span><i className="iconfont icon-coordinates_fill"></i>修改个人信息</span><span></span></p>
-          </div>
-          {/*<ul className="flex-hrz paper-info">
-                      <li className="flex-full"><p>上传篇数</p><p className="number">1w</p></li>
-                      <li className="flex-full border-left-line"><p>单词数</p><p className="number">20w</p></li>
-                    </ul>*/}
-          <ul className="flex-hrz paper-info" onClick={this.vocabulary.bind(this)}>            
-            <li className="flex-full border-left-line"><p>查看所有生词</p>{/*<p className="number">20w</p>*/}</li>
-          </ul>
+             <section className="flex-hrz">
+              <div className="left">
+                <span>输入文字</span><input className="" type="text" placeholder="输入文字" ref='address'/>
+                <span>上传图片</span><input className="" type="text" placeholder="上传图片" />
+                <span>上传链接</span><input className="" type="text" placeholder="上传链接" />                
+                <span>上传视频</span><input className="" type="text" placeholder="上传视频" />
+                <div className="flex-init file-btn"><i className="iconfont icon-shangchuan1"></i><span>发布</span></div>
 
-          <ul className="flex-hrz paper-info" onClick={this.moments.bind(this)}>            
-            <li className="flex-full border-left-line"><p>学术圈</p>{/*<p className="number">20w</p>*/}</li>
-          </ul>
+              </div>
 
 
-          <div className="flex-hrz upload-paper">
-            <label className="flex-full input-selector">
-              <span className="input-description">选择要上传的文件</span>
-              <input type="file" ref="paperFile"  onChange={this.changeInput}/>
-            </label>            
-          </div>
-          {fileName?(<div>         
-                          <span>论文标题</span><input className="" type="text" placeholder={fileName} />
-                          
-                          <span>论文评论</span><input className="" type="text" placeholder="输入论文评论" />
-                          <span>论文类型</span><input className="" type="text" placeholder="输入论文类型" />
-                          <div className="flex-init file-btn"><i className="iconfont icon-shangchuan1"></i><span onClick={this.uploadFile}>上传</span></div>
-                    </div>):''}
-          
-
-        </div>
-        <div className="flex-full right"><WordLine items={wordLineData} /></div>
-      </section>
-      {isShowloading ? <Loading /> : null}
+              <div className="flex-full right"><WordLine items={wordLineData} /></div>
+    
+              </section>
     </div>);
   }
 }
 
-export default MyAccount;
+export default Moments;
