@@ -65,6 +65,13 @@ class MyWordList extends PageManager {
   }
   //保存单词
   saveWordListsFn() {
+
+    const isLogin = userModel.getCurrentUser();
+    if (!isLogin) {
+      this.props.history.push('login');
+      return;
+    }
+    
     this.setState({
       isShowloading: true,
     });
@@ -87,7 +94,8 @@ class MyWordList extends PageManager {
   findWord(index) {
     if(index !== '') {
       const temp = this.state.wordLists[index];
-      temp.familiar = true;
+      temp.familiar?temp.familiar = false:temp.familiar = true;
+      temp.clickCount||temp.clickCount==0?temp.clickCount++:temp.clickCount=0;
       this.setState({
         wordList: this.state.wordLists,
       });

@@ -7,8 +7,8 @@ import {
 } from './../../../../common/index.js';
 import userModel from './../../models/AbstractModel.js';
 import PageManager from './../../core/PageManager.js';
-import './MyAccount.css';
-class MyAccount extends PageManager {
+import './EditProfile.css';
+class EditProfile extends PageManager {
   constructor(props){
     super(props)
     this.state = {
@@ -77,8 +77,6 @@ class MyAccount extends PageManager {
   }
   // 保存上传的作品
   savePaperFile(fileUrl, name) {
-    //paperKeyword
-    //paperDescription
     const params = {
       userId: this.userId,
       paperTitle: name,
@@ -186,8 +184,9 @@ class MyAccount extends PageManager {
   vocabulary(){
     this.props.history.push('vocabulary');
   }
-  editProfile(){
-    this.props.history.push('editProfile');
+  uploadProfile(){
+    console.log(this.refs.address)
+    console.log(this.refs.address.attributes.placeholder.nodeValue)
   }
   render() {
     if (this.state.isDataReady) return <Loading />;
@@ -206,23 +205,22 @@ class MyAccount extends PageManager {
       },
       imgUrl: 'http://www.sucaijishi.com/uploadfile/2014/0524/20140524012047988.png',
     };
-    // 论文列表
-    const wordLineData = [];
-    wordLists.map(value => {
-      const temp = {
-        time: this.formatDate(value.createdAt, 'yyyy-MM-dd'),
-        paperTitle: value.attributes.paperTitle,
-        content: value.attributes.paperDescription,
-        btns: [{
-          label: '查看全文',
-          callback: () => { this.openNewView(value.attributes.fileUrl); }
-        }, {
-          label: '查看单词',
-          callback: () => { this.viewWordList(value.id); }
-        }],
-      };
-      wordLineData.push(temp);
-    });
+
+    let address='';
+    address?address='ddd':address='输入你的地址';
+
+    // let address='';
+    // address?address='ddd':address='输入你的地址';
+
+    // let address='';
+    // address?address='ddd':address='输入你的地址';
+
+    // let address='';
+    // address?address='ddd':address='输入你的地址';
+
+    // let address='';
+    // address?address='ddd':address='输入你的地址';
+                    
     return (<div className="my-account">
       <NavBar {...navBarData} />
       <section className="flex-hrz">
@@ -231,36 +229,26 @@ class MyAccount extends PageManager {
             <img className="user-img" src="http://www.sucaijishi.com/uploadfile/2014/0524/20140524012047988.png" />
             <h1>{username}</h1>
             <p className="flex-hrz"><span><i className="iconfont icon-coordinates_fill"></i>上海</span><span>复旦大学IMBA</span></p>
-            <p className="flex-hrz" onClick={this.editProfile.bind(this)}><span><i className="iconfont icon-coordinates_fill"></i>修改个人信息</span><span></span></p>
+            <p className="flex-hrz"><span><i className="iconfont icon-coordinates_fill"></i>修改个人信息</span><span></span></p>
           </div>
-          {/*<ul className="flex-hrz paper-info">
-                      <li className="flex-full"><p>上传篇数</p><p className="number">1w</p></li>
-                      <li className="flex-full border-left-line"><p>单词数</p><p className="number">20w</p></li>
-                    </ul>*/}
-          <ul className="flex-hrz paper-info" onClick={this.vocabulary.bind(this)}>            
-            <li className="flex-full border-left-line"><p>查看所有生词</p>{/*<p className="number">20w</p>*/}</li>
-          </ul>
-          <div className="flex-hrz upload-paper">
-            <label className="flex-full input-selector">
-              <span className="input-description">选择要上传的文件</span>
-              <input type="file" ref="paperFile"  onChange={this.changeInput}/>
-            </label>            
+
+          <div>
+                <input className="" type="text" placeholder={address} ref='address'/>
+                <input className="" type="text" placeholder="输入你的学校" />
+                <input className="" type="text" placeholder="输入你的真实姓名" />
+                <input className="" type="text" placeholder="输入你的专业" />
+                <input className="" type="text" placeholder="输入你的研究领域" />
+                <div className="flex-init file-btn"><i className="iconfont icon-shangchuan1"></i><span onClick={this.uploadProfile.bind(this)}>更新</span></div>
+
           </div>
-          {fileName?(<div>         
-                          <span>论文标题</span><input className="" type="text" placeholder={fileName} />
-                          
-                          <span>论文评论</span><input className="" type="text" placeholder="输入论文评论" />
-                          <span>论文类型</span><input className="" type="text" placeholder="输入论文类型" />
-                          <div className="flex-init file-btn"><i className="iconfont icon-shangchuan1"></i><span onClick={this.uploadFile}>上传</span></div>
-                    </div>):''}
           
 
         </div>
-        <div className="flex-full right"><WordLine items={wordLineData} /></div>
+        
       </section>
       {isShowloading ? <Loading /> : null}
     </div>);
   }
 }
 
-export default MyAccount;
+export default EditProfile;
