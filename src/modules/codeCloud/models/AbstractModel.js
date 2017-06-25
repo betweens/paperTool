@@ -84,35 +84,16 @@ class AbstractModel {
       fail && fail(error);
     });    
   }
-  // 保存单词列表
-  saveWordLists(params, succ, fail) {
-    const WordLists = AV.Object.extend('wordLists');
-    const todoWordLists= new WordLists();
-    todoWordLists.set('userId', params.userId);
-    todoWordLists.set('show', params.show);
-    todoWordLists.set('paperId', params.paperId);
-    todoWordLists.set('wordList', params.wordList);
-    todoWordLists.save().then(function(todo) {
-      succ && succ(todo);
 
-    
-      const Vocabulary = AV.Object.extend('Vocabulary');
-      const VocabularyLists= new Vocabulary();
-      // VocabularyLists.set('userId', params.userId);
-      // VocabularyLists.set('show', params.show);
-      // VocabularyLists.set('paperId', params.paperId);
-      VocabularyLists.set('VocabularyWordList', params.wordList);
-      VocabularyLists.save().then(()=>{},()=>{})
-    }, function (error) {
-      fail && fail(error);
-    });
-  }
   // 更新单词列表
   updataWordLists(params, succ, fail) {
-    const WordLists = AV.Object.createWithoutData('wordLists', params.id);
-    WordLists.set('userId', params.userId);
-    WordLists.set('show', params.show);
-    WordLists.set('paperId', params.paperId);
+    let vacabularyId='';
+    var query = new AV.Query('wordLists');
+    query.equalTo('paperId', params.paperId);
+    query.find().then((results)=>{
+      vacabularyId=results[0].id;
+
+    const WordLists = AV.Object.createWithoutData('wordLists', vacabularyId);
     WordLists.set('wordList', params.wordList);
     WordLists.save().then(function(todo) {
       succ && succ(todo);
@@ -166,7 +147,60 @@ class AbstractModel {
     }, function (error) {
       fail && fail(error);
     });
+    },()=>{})
   }
+
+  // 保存单词列表
+  saveWordLists(params, succ, fail) {
+    const WordLists = AV.Object.extend('wordLists');
+    const todoWordLists= new WordLists();
+    todoWordLists.set('userId', params.userId);
+    todoWordLists.set('show', params.show);
+    todoWordLists.set('paperId', params.paperId);
+    todoWordLists.set('wordList', params.wordList);
+    todoWordLists.save().then(function(todo) {
+      succ && succ(todo);
+
+    
+      const Vocabulary = AV.Object.extend('Vocabulary');
+      const VocabularyLists= new Vocabulary();
+      // VocabularyLists.set('userId', params.userId);
+      // VocabularyLists.set('show', params.show);
+      // VocabularyLists.set('paperId', params.paperId);
+      VocabularyLists.set('VocabularyWordList', params.wordList);
+      VocabularyLists.save().then(()=>{},()=>{})
+    }, function (error) {
+      fail && fail(error);
+    });
+  }
+
+
+  getVocabulary(params,succ,fail){
+    const query = new AV.Query('Vocabulary');
+    query.equalTo('userId', params.userId);
+    query.find().then(function (todo) {
+      succ && succ(todo);
+    }, function (error) {
+      fail && fail(error);
+    });     
+  }
+  updataVocabulary(params,succ,fail){
+      let vacabularyId='';
+      var query = new AV.Query('Vocabulary');
+      console.log(params.userId)
+      query.equalTo('userId', params.userId);
+      query.find().then((results)=>{
+        console.log(results)
+        vacabularyId=results[0].id;
+
+        
+        const Vocabulary = AV.Object.createWithoutData('Vocabulary',vacabularyId );
+        Vocabulary.set('VocabularyWordList', params.wordList); 
+        Vocabulary.save();          
+        },()=>{})
+
+  }
+
   // 用户登出
   logOut() {
     AV.User.logOut();

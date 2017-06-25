@@ -7,8 +7,8 @@ import {
   Taps,
 } from './../../../../common/index.js';
 import PageManager from './../../core/PageManager.js';
-import './MyWordList.css';
-class MyWordList extends PageManager {
+import './Vocabulary.css';
+class Vocabulary extends PageManager {
   constructor(props){
     super(props)
     this.state = {
@@ -21,13 +21,7 @@ class MyWordList extends PageManager {
     this.switchWordType = this.switchWordType.bind(this);
   }
   componentWillMount() {
-    const {
-      paperId
-    } = this.getQuery();
-    if(paperId) {
-      this.paperId = paperId;
-      this.initPagedata();
-    }
+    this.initPagedata();    
   }
   initPagedata() {
     const isLogin = userModel.getCurrentUser();
@@ -46,18 +40,18 @@ class MyWordList extends PageManager {
    //      wordLists: resultData
    //    });
    //  } else{
-      this.getWordListsFn(isLogin.attributes.username);
+      this.getVocabulary(isLogin.id);
     // }
   }
-  getWordListsFn(username) {
+  getVocabulary(userId) {
     const params = {
-      paperId: this.paperId,//当前wordList的objectId
+      userId: userId,//当前wordList的objectId
     };
     //getThisWordList，得到当前的WordList,而不是全部的
-    userModel.getThisWordList(params, (data) => {
+    userModel.getVocabulary(params, (data) => {
          this.setState({
           isDataReady: false,
-          wordLists: data.attributes.wordList,
+          wordLists: data[0].attributes.VocabularyWordList,
         });
     }, (error) => {
       console.log(error);
@@ -65,20 +59,12 @@ class MyWordList extends PageManager {
   }
   //保存单词
   saveWordListsFn() {
-    this.setState({
-      isShowloading: true,
-    });
     const params = {
       userId: this.userId,
-      show: true,
-      paperId: this.paperId,
       wordList: this.state.wordLists,
     };
-    console.log(params.userId)
-    userModel.updataWordLists(params, (data) => {
-      this.setState({
-      isShowloading: false,
-    });
+    userModel.updataVocabulary(params, (data) => {
+
     }, (error)=> {
       console.log(error);
     });
@@ -149,4 +135,4 @@ class MyWordList extends PageManager {
     </div>);
   }
 }
-export default MyWordList;
+export default Vocabulary;
