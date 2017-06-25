@@ -117,23 +117,51 @@ class AbstractModel {
     WordLists.save().then(function(todo) {
       succ && succ(todo);
 
-    
-      const Vocabulary = AV.Object.extend('Vocabulary');
-      const VocabularyLists= new Vocabulary();
-      // VocabularyLists.set('userId', params.userId);
+      let vacabularyId='';
+      var query = new AV.Query('Vocabulary');
+      query.equalTo('userId', params.userId);
+      query.find().then((results)=>{
+        vacabularyId=results[0].id;
+        const VocabularyWordListQuery=results[0].attributes.VocabularyWordList;
+        let vocabularyListFinal=VocabularyWordListQuery;
+        params.wordList.forEach((item)=>{
+          if(!item.familiar){
+            //如果存在，在原来的单词出现次数，频率，count,上加1
+            let wordCount=0;//统计该单词出现的次数
+            vocabularyListFinal.forEach((vocabularyItem)=>{                          
+              if(item.word==vocabularyItem.word){
+                wordCount++;
+                vocabularyItem.count||vocabularyItem.count==0?vocabularyItem.count++:vocabularyItem.count=0;
+              }            
+            })
+
+            if(!wordCount){
+              item.count=0;                          
+            }
+            vocabularyListFinal.push(item)                                                  
+          }
+        })
+        var vocabularyObject = AV.Object.createWithoutData('Vocabulary',vacabularyId );
+        // 修改属性
+        vocabularyObject.set('VocabularyWordList',vocabularyListFinal );
+        // 保存到云端
+        vocabularyObject.save();        
+      },()=>{})
+      // const Vocabulary = AV.Object.extend('Vocabulary');
+      // const VocabularyLists= new Vocabulary();
+      
       // VocabularyLists.set('show', params.show);
       // VocabularyLists.set('paperId', params.paperId);
-      let vocabularyFilter=[];//当前词汇表内的单词 currentVocabulary
-      params.wordList.forEach((item)=>{
-        if(!item.familiar){
-          //如果存在，在原来的单词出现次数，频率，count,上加1
-          vocabularyFilter.push(item)
-        }
-      })
-      VocabularyLists.set('VocabularyWordList', vocabularyFilter);
-      console.log(params.wordList)
-      console.log(vocabularyFilter)
-      VocabularyLists.save().then(()=>{},()=>{})
+      // let vocabularyFilter=[];//当前词汇表内的单词 currentVocabulary
+      // params.wordList.forEach((item)=>{
+      //   if(!item.familiar){
+      //     //如果存在，在原来的单词出现次数，频率，count,上加1
+      //     vocabularyFilter.push(item)
+      //   }
+      // })
+      // VocabularyLists.set('VocabularyWordList', vocabularyFilter);
+      // VocabularyLists.set('userId', params.userId);
+      // VocabularyLists.save().then(()=>{},()=>{})
 
     }, function (error) {
       fail && fail(error);

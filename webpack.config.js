@@ -97,7 +97,7 @@ const config = {
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
 	  new HtmlWebpackPlugin({
-	  	title: 'fuck',
+	  	title: '论文助手',
 	  	template: path.resolve(__dirname, './src/modules/codeCloud/index.html'),
 	  }),
 	  new ExtractTextPlugin("css/styles.css"),

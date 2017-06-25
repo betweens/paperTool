@@ -35,6 +35,8 @@ class MyWordList extends PageManager {
       this.props.history.push('login');
       return;
     }
+    console.log(isLogin)
+    this.userId=isLogin.id;
    const wordList = window.localStorage.getItem('wordList');
     if (wordList) {
       let resultData = JSON.parse(wordList);
@@ -75,6 +77,7 @@ class MyWordList extends PageManager {
       paperId: this.paperId,
       wordList: this.state.wordLists,
     };
+    console.log(this.userId)
     userModel.updataWordLists(params, (data) => {
       this.setState({
       isShowloading: false,
