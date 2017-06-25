@@ -228,6 +228,7 @@ class EditProfile extends PageManager {
           <div className="user-car">
             <img className="user-img" src="http://www.sucaijishi.com/uploadfile/2014/0524/20140524012047988.png" />
             <h1>{username}</h1>
+            <input className="" type="file" placeholder="上传头像" />            
             <p className="flex-hrz"><span><i className="iconfont icon-coordinates_fill"></i>上海</span><span>复旦大学IMBA</span></p>
             <p className="flex-hrz"><span><i className="iconfont icon-coordinates_fill"></i>修改个人信息</span><span></span></p>
           </div>
