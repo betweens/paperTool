@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "测试 接口",
   "scripts": {
-    "start": "babel-node tools/cpfile.js && webpack-dev-server --content-base dist",
+    "start": "webpack-dev-server --content-base dist",
     "build": "babel-node tools/cpfile.js && webpack --progress --color"
   },
   "repository": {
