@@ -229,15 +229,18 @@ class EditProfile extends PageManager {
             <img className="user-img" src="http://www.sucaijishi.com/uploadfile/2014/0524/20140524012047988.png" />
             <h1>{username}</h1>
             <input className="" type="file" placeholder="上传头像" />            
-            <p className="flex-hrz"><span><i className="iconfont icon-coordinates_fill"></i>上海</span><span>复旦大学IMBA</span></p>
-            <p className="flex-hrz"><span><i className="iconfont icon-coordinates_fill"></i>修改个人信息</span><span></span></p>
+            <p className="flex-hrz"><span><i className="iconfont icon-coordinates_fill"></i>复旦大学</span><span>管理学院</span></p>
+            <p className="flex-hrz"><span><i className="iconfont icon-coordinates_fill"></i>IMBA</span><span>2017级</span></p>
+            <p className="flex-hrz"><span><i className="iconfont icon-coordinates_fill"></i>关注领域</span><span>机器学习，金融</span></p>          
           </div>
 
           <div>
-                <input className="" type="text" placeholder={address} ref='address'/>
+                <input className="" type="text" placeholder="输入你的真实姓名" /><input type="text"/>    
+                {/*<input className="" type="text" placeholder={address} ref='address'/>*/}                
                 <input className="" type="text" placeholder="输入你的学校" />
-                <input className="" type="text" placeholder="输入你的真实姓名" />
+                <input className="" type="text" placeholder="输入你的学院" />
                 <input className="" type="text" placeholder="输入你的专业" />
+                <input className="" type="text" placeholder="输入你入学年份" />
                 <input className="" type="text" placeholder="输入你的研究领域" />
                 <div className="flex-init file-btn"><i className="iconfont icon-shangchuan1"></i><span onClick={this.uploadProfile.bind(this)}>更新</span></div>
 
