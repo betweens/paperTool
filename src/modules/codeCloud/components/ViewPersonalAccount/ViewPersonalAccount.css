@@ -1,5 +1,22 @@
-.my-account {
-  
+.ViewPersonalAccount {
+
+  input.paperInfo {
+    margin: 0px 35px 10px 35px;
+    border: 1px solid #218ba1;
+    display: block;
+    width: 230px;
+    height: 40px;
+    color: #777;
+    background: #fff;
+    font-size: 16px;
+  }
+  .paperInfoContainer{
+    margin-top:20px;
+  }
+  .paperInfoContainer span{
+    margin: 0px 35px 10px 35px;
+    font-size:16px;
+  } 
   section {
     width: 960px;
     margin: 0 auto;
@@ -85,25 +102,29 @@
     }
   }
   
-  .file-btn {
-    width: 100px;
-    line-height: 30px;
-    background-color: #218ba1;
-    font-size: 16px;
-    text-align: center;
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
-    cursor: pointer;
+  .paperInfoContainer{
 
-    span {
-      margin-left: 5px;
-      vertical-align: middle;
+    .file-btn {
+      margin: 30px auto 35px;
+      width: 100px;
+      line-height: 30px;
+      background-color: #218ba1;
+      font-size: 16px;
+      text-align: center;
+      border-radius: 5px;
+      cursor: pointer;
+
+      span {
+        margin-left: 5px;
+        vertical-align: middle;
+      }
     }
-  }
 
-  .file-btn:active {
-    background-color: #ba1218
-  }
+    .file-btn:active {
+      background-color: #ba1218
+    }
+  } 
+
   .upload-paper .input-description{
    
   }
@@ -115,7 +136,7 @@
 
 
 @media screen and (max-width:500px){
-  .my-account{
+  .ViewPersonalAccount{
     .left{
         display: none;
     }

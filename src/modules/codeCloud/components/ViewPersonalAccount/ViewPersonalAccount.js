@@ -17,7 +17,16 @@ class ViewPersonalAccount extends PageManager {
       isShowloading: false,
       fileName: '',
       accountType:0,//论文还是学术圈
+      titleValue:'',
+      descriptionValue:'',
+      typeValue:'',
+      momentText:'',
+      momentLink:'',
+      momentLinkDesc:'',
+      momentsList:[],
+      momentsListDataNow:{},
     }
+    this.initialMoments=[];
     this.userId = '';
     this.uploadFile = this.uploadFile.bind(this);
     this.logOutFn = this.logOutFn.bind(this);
@@ -26,6 +35,12 @@ class ViewPersonalAccount extends PageManager {
     this.changeInput = this.changeInput.bind(this);
     this.createxmlhttp = this.createxmlhttp.bind(this);
     this.saveWordListsFn = this.saveWordListsFn.bind(this);
+    ['titleHandleChange','descriptionHandleChange','typeHandleChange','momentTextHandleChange','momentLinkHandleChange','momentLinkDescHandleChange'].forEach((method)=>{
+      this[method]=this[method].bind(this)
+    })
+
+
+
   }
   componentWillMount() {
     this.getPaperList();
@@ -46,6 +61,11 @@ class ViewPersonalAccount extends PageManager {
          this.setState({
           isDataReady: false,
           username: isLogin.attributes.username,
+          school:isLogin.attributes.school,
+          department:isLogin.attributes.department,
+          major:isLogin.attributes.major,
+          adminYear:isLogin.attributes.adminYear,
+          researchField:isLogin.attributes.researchField,
           wordLists: data,
         })
       } else {
@@ -55,6 +75,16 @@ class ViewPersonalAccount extends PageManager {
       }
     }, (error) => {
       console.log(error);
+    });
+
+    const momentsParams={
+      userId:this.userId
+    }
+    userModel.getMomentsList(momentsParams, (data) => {
+      this.setState({
+        momentsList:data
+      })
+    }, (error) => {
     });
   }
   // 上传论文
@@ -83,11 +113,18 @@ class ViewPersonalAccount extends PageManager {
     //paperDescription
     const params = {
       userId: this.userId,
-      paperTitle: name,
       fileUrl,
+      paperTitle: this.state.titleValue,
+      paperDescription:this.state.descriptionValue,
+      keyWords:[this.state.typeValue]
     };
+    console.log('*********')
+    console.log(params)
     userModel.savePaper(params, (data) => {
       this.paperId = data.id;
+      // this.setState({
+      //   isShowloading: false,
+      // });
       this.createxmlhttp(fileUrl);
     },(error) => {
       console.log(error);
@@ -107,7 +144,7 @@ class ViewPersonalAccount extends PageManager {
         self.saveWordListsFn(resultData);
       }
     }  
-    xmlhttp.open("POST","http://218.193.131.250:54321",true);
+    xmlhttp.open("POST","http://218.193.131.251:54321",true);
     xmlhttp.send('p='+url);
   }
   // 保存单词
@@ -120,8 +157,13 @@ class ViewPersonalAccount extends PageManager {
     };
     this.savPaperId(this.paperId);
     userModel.saveWordLists(params, (data) => {
-      window.localStorage.setItem('WordListsId', data.id);
-      this.forward('myWordList/'+ this.paperId);
+
+      // window.localStorage.setItem('WordListsId', data.id);
+      // this.forward('myWordList/'+ this.paperId);
+      // 刷新当前页面
+      this.setState({
+        isShowloading: false,
+      });
     }, (error)=> {
       console.log(error);
     });
@@ -145,7 +187,8 @@ class ViewPersonalAccount extends PageManager {
     const obj = e.target.files;
     if (obj.length > 0) {
       this.setState({
-        fileName: obj[0].name, 
+        fileName: obj[0].name,
+        titleValue: obj[0].name
       });
     }
   }
@@ -197,17 +240,69 @@ class ViewPersonalAccount extends PageManager {
 
   switchWordType(index) {
     if (index === this.state.accountType) return
+    this.setState({
+      accountType: index,  // 0论文  1 学术圈 
+    });
+  }
+
+
+  titleHandleChange(){
+    this.setState({titleValue: event.target.value});
+  }
+  descriptionHandleChange(){
+    this.setState({descriptionValue: event.target.value});
+  }
+  typeHandleChange(){
+    this.setState({typeValue: event.target.value});
+  }
+
+  momentTextHandleChange(){
+    this.setState({momentText:event.target.value})
+  }
+  momentLinkHandleChange(){
+    this.setState({momentLink:event.target.value})
+  }
+  momentLinkDescHandleChange(){
+    this.setState({momentLinkDesc:event.target.value  })  
+  }
+
+  uploadMoment(){
+    const params={
+      userId: this.userId,
+      momentText:this.state.momentText,
+      momentLink:this.state.momentLink,
+      momentLinkDesc:this.state.momentLinkDesc
+    };
+    if(!(this.state.momentText||this.state.momentLink||this.state.momentLinkDesc)){
+      alert('请输入')
+      return;
+    }
+    let momentsListDataArray={
+        time:'now',
+        paperTitle: params.momentText,
+        content: params.momentLink
+    };
+    userModel.saveMoments(params, (data) => {
       this.setState({
-        accountType: index,  // 0论文  1 学术圈 
-      });
+        momentsListDataNow:momentsListDataArray
+      })
+    },(error) => {
+
+    });    
   }
   render() {
     if (this.state.isDataReady) return <Loading />;
     const {
       fileName,
       username,
+      school,
+      department,
+      major,
+      adminYear,
+      researchField,
       wordLists = [],
       isShowloading,
+      momentsList
     } = this.state;
     // 头部数据
     const navBarData = {
@@ -238,6 +333,28 @@ class ViewPersonalAccount extends PageManager {
     wordLineData=wordLineData.reverse()
 
 
+    let momentsListData = [];
+    momentsList.map(value => {
+      const temp = {
+        time: this.formatDate(value.createdAt, 'yyyy-MM-dd'),
+        paperTitle: value.attributes.momentText,
+        content: value.attributes.momentLink,
+      };
+      momentsListData.push(temp);
+    });
+    
+    if(this.state.momentsListDataNow.time){
+      if(!this.initialMoments.length){
+        momentsListData.push(this.state.momentsListDataNow)
+      }else{
+        momentsListData=this.initialMoments;
+        momentsListData.push(this.state.momentsListDataNow)
+      }
+      
+    }
+
+    this.initialMoments=momentsListData;
+    momentsListData=momentsListData.reverse()
 
     const tabData = {
       label: ['论文' ,'学术圈'],
@@ -245,35 +362,21 @@ class ViewPersonalAccount extends PageManager {
         this.switchWordType(i);
       }
     }
-    return (<div className="my-account">
-      <NavBar {...navBarData} />
-      <section className="flex-hrz">
-        {this.state.accountType?(<div className="left">
-          <div className="user-car">
-            <img className="user-img" src="http://www.sucaijishi.com/uploadfile/2014/0524/20140524012047988.png" />
-            <h1>{username}</h1>
-            <p className="flex-hrz"><span><i className="iconfont icon-coordinates_fill"></i>上海</span><span>复旦大学</span></p>
-            <p className="flex-hrz"><span><i className="iconfont icon-coordinates_fill"></i>管理学院</span><span>2017级</span></p>
-            <p className="flex-hrz"><span><i className="iconfont icon-coordinates_fill"></i>IMBA</span><span></span></p>
-            <p className="flex-hrz"><span><i className="iconfont icon-coordinates_fill"></i>关注领域</span><span>机器学习，金融</span></p>
-            <p className="flex-hrz" onClick={this.editProfile.bind(this)}><span><i className="iconfont icon-coordinates_fill"></i>修改个人信息</span><span></span></p>
-          </div>
-                <span>输入文字</span><input className="" type="text" placeholder="输入文字" ref='address'/>
-                <span>上传链接</span><input className="" type="text" placeholder="上传链接" />                
-                <span>上传图片</span><input className="" type="text" placeholder="上传图片" />
-                <span>上传视频</span><input className="" type="text" placeholder="上传视频" />
-                <div className="flex-init file-btn"><i className="iconfont icon-shangchuan1"></i><span>发布</span></div>
 
-              </div>):(<div className="left">
-          <div className="user-car">
-            <img className="user-img" src="http://www.sucaijishi.com/uploadfile/2014/0524/20140524012047988.png" />
-            <h1>{username}</h1>
-            <p className="flex-hrz"><span><i className="iconfont icon-coordinates_fill"></i>上海</span><span>复旦大学</span></p>
-            <p className="flex-hrz"><span><i className="iconfont icon-coordinates_fill"></i>管理学院</span><span>2017级</span></p>
-            <p className="flex-hrz"><span><i className="iconfont icon-coordinates_fill"></i>IMBA</span><span></span></p>
-            <p className="flex-hrz"><span><i className="iconfont icon-coordinates_fill"></i>关注领域</span><span>机器学习，金融</span></p>
-            <p className="flex-hrz" onClick={this.editProfile.bind(this)}><span><i className="iconfont icon-coordinates_fill"></i>修改个人信息</span><span></span></p>
-          </div>
+    let userCard=(<div className="user-car">
+                    <img className="user-img" src="http://www.sucaijishi.com/uploadfile/2014/0524/20140524012047988.png" />
+                    <h1>{username}</h1>
+                    <p className="flex-hrz"><span><i className="iconfont icon-coordinates_fill"></i>{school}</span><span>{department}</span></p>
+                    <p className="flex-hrz"><span><i className="iconfont icon-coordinates_fill"></i>{major}</span><span>{adminYear}</span></p>
+                    <p className="flex-hrz"><span><i className="iconfont icon-coordinates_fill"></i>关注领域</span><span>{researchField}</span></p>
+                    <p className="flex-hrz" onClick={this.editProfile.bind(this)}><span><i className="iconfont icon-coordinates_fill"></i>修改个人信息</span><span></span></p>
+                  </div>);
+
+    return (<div className="ViewPersonalAccount">
+      <NavBar {...navBarData} />
+      <Taps {...tabData} />      
+        {!this.state.accountType?(<section className="flex-hrz"><div className="left">
+          {userCard}
           {/*<ul className="flex-hrz paper-info">
                       <li className="flex-full"><p>上传篇数</p><p className="number">1w</p></li>
                       <li className="flex-full border-left-line"><p>单词数</p><p className="number">20w</p></li>
@@ -282,31 +385,41 @@ class ViewPersonalAccount extends PageManager {
             <li className="flex-full border-left-line"><p>查看所有生词</p>{/*<p className="number">20w</p>*/}</li>
           </ul>
 
-
-
-
           <div className="flex-hrz upload-paper">
             <label className="flex-full input-selector">
               <span className="input-description">选择要上传的文件</span>
               <input type="file" ref="paperFile"  onChange={this.changeInput}/>
-            </label>            
-          </div>
-          {fileName?(<div>         
-                          <span>论文标题</span><input className="" type="text" placeholder={fileName} />
-                          
-                          <span>论文评论</span><input className="" type="text" placeholder="输入论文评论" />
-                          <span>论文类型</span><input className="" type="text" placeholder="输入论文类型" />
-                          <div className="flex-init file-btn"><i className="iconfont icon-shangchuan1"></i><span onClick={this.uploadFile}>上传</span></div>
+            </label>           
+          </div> 
+
+          {fileName?(<div className="paperInfoContainer">         
+                          <div><span>论文标题</span><input className="paperInfo" type="text" value={this.state.titleValue} onChange={this.titleHandleChange}/></div>                          
+                          <div><input className="paperInfo" type="text" placeholder="输入论文评论" onChange={this.descriptionHandleChange}/></div>
+                          <div><input className="paperInfo" type="text" placeholder="输入论文类型" onChange={this.typeHandleChange} /></div>
+                          <div className="flex-init file-btn" onClick={this.uploadFile} ><i className="iconfont icon-shangchuan1"></i><span>上传</span></div>
                     </div>):''}
           
 
-        </div>)}
-        <div className="flex-full right">
-            <Taps {...tabData} /> 
+        </div><div className="flex-full right">
             <WordLine items={wordLineData} />
 
-        </div>
-      </section>
+        </div></section>):(<section className="flex-hrz"><div className="left">
+                  {userCard}
+                  <div className="paperInfoContainer">
+                    <span>输入文字</span><input className="paperInfo" type="text" placeholder="输入文字" onChange={this.momentTextHandleChange}/>
+                    <span>链接</span><input className="paperInfo" type="text" placeholder="上传链接" onChange={this.momentLinkHandleChange}/>                
+                    <span>链接描述</span><input className="paperInfo" type="text" placeholder="上传链接" onChange={this.momentLinkDescHandleChange}/>                
+{/*                    <span>上传图片</span><input className="paperInfo" type="text" placeholder="上传图片" onChange={this.titleHandleChange}/>
+                    <span>上传视频</span><input className="paperInfo" type="text" placeholder="上传视频" onChange={this.titleHandleChange}/>*/}
+                    <div className="flex-init file-btn"  onClick={this.uploadMoment.bind(this)}><i className="iconfont icon-shangchuan1"></i><span>发布</span></div>
+                  </div>
+              </div>        <div className="flex-full right">
+           
+            <WordLine items={momentsListData} />
+
+        </div></section>)}
+
+      
       {isShowloading ? <Loading /> : null}
     </div>);
   }

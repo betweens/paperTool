@@ -39,11 +39,44 @@ class AbstractModel {
     const currentUser = AV.User.current();
     return currentUser
   }
+
+  upgradeProfile(params,succ,fail){
+    console.log(params)
+    const {
+      username,
+      school,
+      department,
+      major,
+      adminYear,
+      researchField,
+    }=params;
+    // AV.User.logInWithMobilePhone(params.mobilePhoneNumber, params.password).then(function (loginedUser) {
+      // loginedUser.set('username',username)
+      // loginedUser.set('school',school)
+      // loginedUser.set('department',department)
+      // loginedUser.set('major',major)
+      // loginedUser.set('adminYear',adminYear)
+      // loginedUser.set('researchField',researchField)
+    //   loginedUser.save()      
+    // }, (function (error) {
+    //   fail && fail(error);
+    // })); 
+    const currentUser=AV.User.current(); 
+    currentUser.set('username',username)
+    currentUser.set('school',school)
+    currentUser.set('department',department)
+    currentUser.set('major',major)
+    currentUser.set('adminYear',adminYear)
+    currentUser.set('researchField',researchField)
+    currentUser.save()    
+  }
   //获取用户信息
   registerUser(params, succ, fail) {
     const user = new AV.User();
     user.set({username: params.username});
     user.set({password: params.password});
+    user.set({mobilePhoneNumber: params.mobilePhoneNumber});
+    user.set({mobilePhoneNumber: params.mobilePhoneNumber});
     user.set({mobilePhoneNumber: params.mobilePhoneNumber});
     user.signUp().then(function (loginedUser) {
       succ && succ(loginedUser);
@@ -61,6 +94,16 @@ class AbstractModel {
       fail && fail(error);
     });
   }
+
+  getMomentsList(params, succ, fail) {
+    const query = new AV.Query('Moments');
+    query.equalTo('userId', params.userId);
+    query.find().then(function (todo) {
+      succ && succ(todo);
+    }, function (error) {
+      fail && fail(error);
+    });
+  }
   // 保存上传文件
   savePaper(params,succ,fail) {
     const objPapers = AV.Object.extend('papers');
@@ -68,11 +111,29 @@ class AbstractModel {
     todoPapers.set('userId', params.userId);
     todoPapers.set('fileUrl', params.fileUrl);
     todoPapers.set('paperTitle', params.paperTitle);
+    todoPapers.set('paperDescription', params.paperDescription);
+    todoPapers.set('keyWords', params.keyWords);
+
     todoPapers.save().then(function(todo) {
       succ && succ(todo);
     }, function(error) {
       fail && fail(error);
     });
+  }
+
+  saveMoments(params,succ,fail){
+    const objMoments= AV.Object.extend('Moments');
+    const todoMoments= new objMoments();
+    todoMoments.set('userId', params.userId);
+    todoMoments.set('momentText', params.momentText);
+    todoMoments.set('momentLink', params.momentLink);
+    todoMoments.set('momentLinkDesc', params.momentLinkDesc);
+
+    todoMoments.save().then(function(todo) {
+      succ && succ(todo);
+    }, function(error) {
+      fail && fail(error);
+    });    
   }
   //当前wordList,传入objectId
   getThisWordList(params,succ,fail){
@@ -203,6 +264,7 @@ class AbstractModel {
 
   // 用户登出
   logOut() {
+    console.log('000')
     AV.User.logOut();
   }
   // 上传文件

@@ -13,7 +13,6 @@ body {
 }
 .tabs {
   background: #1ab188;
-  height: 60px;
   margin: 25px auto 10px;
 }
 .form {
@@ -23,10 +22,10 @@ body {
 li {
   display: inline-block;
   width: 50%;
-  height: 30px;
   border-right: 1px solid #fff;
   text-align: center;
-  margin-top: 15px;
+  margin: 15px 0;
+  font-size:18px;
 }
 li:last-child {
   border: none;

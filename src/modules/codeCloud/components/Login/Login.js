@@ -9,7 +9,7 @@ class Login extends Component {
       password: '',
       registerUserName:'',
       registerMobilePhoneNumber: '',
-      registerPassword: '',
+      registerPassword: '', 
       rePassword:'',
       loginStatus:true,
 
@@ -29,7 +29,7 @@ class Login extends Component {
   }
   componentWillMount() {
     const isLogin = userModel.getCurrentUser();
-    if (isLogin) this.props.history.push('myAccount');   
+    if (isLogin) this.props.history.push('viewPersonalAccount');   
   }
   // 获取用户名
   userNmaehandleChange(event) {
@@ -63,7 +63,9 @@ class Login extends Component {
     };
     console.log(params);
     userModel.userLogin(params, (data) => {
-      this.props.history.push('myAccount');
+      window.localStorage.setItem('mobilePhoneNumber', mobilePhoneNumber);
+      window.localStorage.setItem('password', password);
+      this.props.history.push('viewPersonalAccount');
     }, (error) => {
       console.log(error);
     });
@@ -122,7 +124,7 @@ class Login extends Component {
       mobilePhoneNumber:registerMobilePhoneNumber,
     }
     userModel.registerUser(params, (data) => {
-      this.props.history.push('main');
+      this.props.history.push('viewPersonalAccount');
     }, () => {
       alert('注册失败');
     })
@@ -161,11 +163,11 @@ class Login extends Component {
               <input className="main-form btn" type="button"  value = "登录" onClick={this.loginFn}/>
           </div>
 
-          <div className="input">
+{/*          <div className="input">
             <label className="pull-right">
               <a href="#" id="3" className="forget-password">忘记密码 ?</a>
             </label>
-          </div>
+          </div>*/}
         </div>
       </div>
 
@@ -193,11 +195,11 @@ class Login extends Component {
               <input className="main-form btn" type="button"  value = "注册" onClick={this.registerFn}/>
           </div>
 
-          <div className="input">
+{/*          <div className="input">
             <label className="pull-right">
               <a href="#" id="3" className="forget-password">已有账号 ?</a>
             </label>
-          </div>
+          </div>*/}
         </div>
       </div>
   );
