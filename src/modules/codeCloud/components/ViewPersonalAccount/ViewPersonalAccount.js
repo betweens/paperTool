@@ -158,12 +158,12 @@ class ViewPersonalAccount extends PageManager {
     this.savPaperId(this.paperId);
     userModel.saveWordLists(params, (data) => {
 
-      // window.localStorage.setItem('WordListsId', data.id);
-      // this.forward('myWordList/'+ this.paperId);
+      window.localStorage.setItem('WordListsId', data.id);
+      this.forward('myWordList/'+ this.paperId);
       // 刷新当前页面
-      this.setState({
-        isShowloading: false,
-      });
+      // this.setState({
+      //   isShowloading: false,
+      // });
     }, (error)=> {
       console.log(error);
     });
