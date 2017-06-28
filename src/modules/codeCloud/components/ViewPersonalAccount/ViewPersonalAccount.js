@@ -54,21 +54,25 @@ class ViewPersonalAccount extends PageManager {
       this.props.history.push('login');
       return;
     }
+
+    this.setState({
+        username: isLogin.attributes.username,
+        school:isLogin.attributes.school,
+        department:isLogin.attributes.department,
+        major:isLogin.attributes.major,
+        adminYear:isLogin.attributes.adminYear,
+        researchField:isLogin.attributes.researchField,      
+    })
     this.userId = isLogin.id;
     const params = {
       objectId: this.userId,
     };
+    console.log(isLogin)
     userModel.getPaperList(params, (data) => {
       if (data.length > 0) {
          this.initialPaper=data;
          this.setState({
           isDataReady: false,
-          username: isLogin.attributes.username,
-          school:isLogin.attributes.school,
-          department:isLogin.attributes.department,
-          major:isLogin.attributes.major,
-          adminYear:isLogin.attributes.adminYear,
-          researchField:isLogin.attributes.researchField,
           wordLists: this.initialPaper,
         })
       } else {

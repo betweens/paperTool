@@ -102,6 +102,7 @@ class Login extends Component {
       alert('用户名不能为空');
       return;
     }
+    console.log(registerPassword)
     if (registerPassword === '') {
       alert('密码不能为空');
       return;
@@ -184,10 +185,8 @@ class Login extends Component {
            </div>
 
           <div className="input">
-              <input className="main-form" type="password"  placeholder="确认密码" onChange={this.rePwdhandleChange}/>
-
-{/*              <input className="main-form" type="password"  placeholder="密码" onChange={this.registerpwdhandleChange}/>
-          */}          </div>
+            <input className="main-form" type="password"  placeholder="密码" onChange={this.registerpwdhandleChange}/>
+          </div>
 
           <div className="input">
               <input className="main-form" type="password"  placeholder="确认密码" onChange={this.rePwdhandleChange}/>
