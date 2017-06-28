@@ -5,6 +5,7 @@ import {
   NavBar,
   WordLine,
   Taps,
+  MomentsLine,
 } from './../../../../common/index.js';
 import userModel from './../../models/AbstractModel.js';
 import PageManager from './../../core/PageManager.js';
@@ -24,7 +25,6 @@ class ViewPersonalAccount extends PageManager {
       momentLink:'',
       momentLinkDesc:'',
       momentsList:[],
-      momentsListDataNow:{},
     }
     this.initialMoments=[];
     this.userId = '';
@@ -277,15 +277,10 @@ class ViewPersonalAccount extends PageManager {
       alert('请输入')
       return;
     }
-    let momentsListDataArray={
-        time:'now',
-        paperTitle: params.momentText,
-        content: params.momentLink
-    };
+
     userModel.saveMoments(params, (data) => {
-      this.setState({
-        momentsListDataNow:momentsListDataArray
-      })
+//刷新当前页面
+window.location.reload()
     },(error) => {
 
     });    
@@ -343,17 +338,6 @@ class ViewPersonalAccount extends PageManager {
       momentsListData.push(temp);
     });
     
-    if(this.state.momentsListDataNow.time){
-      if(!this.initialMoments.length){
-        momentsListData.push(this.state.momentsListDataNow)
-      }else{
-        momentsListData=this.initialMoments;
-        momentsListData.push(this.state.momentsListDataNow)
-      }
-      
-    }
-
-    this.initialMoments=momentsListData;
     momentsListData=momentsListData.reverse()
 
     const tabData = {
@@ -415,7 +399,7 @@ class ViewPersonalAccount extends PageManager {
                   </div>
               </div>        <div className="flex-full right">
            
-            <WordLine items={momentsListData} />
+            <MomentsLine items={momentsListData} />
 
         </div></section>)}
 
