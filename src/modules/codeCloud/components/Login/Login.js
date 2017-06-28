@@ -160,7 +160,7 @@ class Login extends Component {
           </div>
 
           <div className="input">
-              <input className="main-form btn" type="button"  value = "登录" onClick={this.loginFn}/>
+              <div className="main-form btn"  onClick={this.loginFn} >登录</div>
           </div>
 
 {/*          <div className="input">
@@ -184,8 +184,10 @@ class Login extends Component {
            </div>
 
           <div className="input">
-              <input className="main-form" type="password"  placeholder="密码" onChange={this.registerpwdhandleChange}/>
-          </div>
+              <input className="main-form" type="password"  placeholder="确认密码" onChange={this.rePwdhandleChange}/>
+
+{/*              <input className="main-form" type="password"  placeholder="密码" onChange={this.registerpwdhandleChange}/>
+          */}          </div>
 
           <div className="input">
               <input className="main-form" type="password"  placeholder="确认密码" onChange={this.rePwdhandleChange}/>

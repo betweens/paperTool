@@ -55,10 +55,10 @@ li a:link {
 .input-container{
   padding:20px 15px;
 }
-.input {
+.input ,.main-form{
   margin: 20px 0;
 }
-input.main-form {
+.main-form {
   border: 1px solid #a0b3b0;
   display: block;
   width: 100%;
@@ -67,16 +67,15 @@ input.main-form {
   background: #000;
   font-size: 16px;
 }
-input[type="checkbox"] {
-  margin-right: 5px;
-  vertical-align: top;
-}
+
 .input a {
   color: #fff;
 }
-.form input.btn {
+.form .main-form.btn {
   background: #1ab188;
   border: none;
+  text-align: center;
+  padding-top:10px;
 }  
 }
 
