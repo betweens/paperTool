@@ -1,54 +1,90 @@
-.Word-list {  
-  ul {
-    border-radius: 10px;
-  }
-
+.wordLine {  
   li {
-    border-right: 10px solid #1a7d91;
-    border-bottom: 5px solid #1a7d91;
+    min-width: 480px;
+    padding:50px  0;
+    align-items:flex-start;
+    border-left: 10px solid #d6e3e3
   }
-
-  li:last-child {
-    border-bottom: none;
-  }
-
-  .checkbox {
+  
+  .time-text {
     position: relative;
-    width: 80px;
-    text-align: center;
-    background: #1a7d91;
+    width: 30%;
+    height: 70px;
+    border-bottom: 5px solid #d6e3e3
   }
-
-  .circle {
+  
+  .time-text:before {
+    content: '';
     position: absolute;
-    display: inline-block;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-    width: 16px;
-    height: 16px;
+    left: -13px;
+    bottom: -11px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
-    box-shadow: 0 0 0 2px #1a7d91,
-                0 0 0 4px #218ba1,
-  }
-
-  .spain {
-    background: #25e1ae;
-  }
-
-  .word-info {
-    padding: 20px 10px;
+    border: 1px solid #ccc;
     background: #218ba1;
+    box-shadow: 2px 2px 1px #fff,-2px 2px 1px #fff,-2px -2px 1px #fff,2px -2px 1px #fff;
+  }
 
-    h1 {
-      margin-bottom: 10px;
-      font-size: 18px;
-      color: #fff;
-    }
+  
+  .text-bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align:center;
+    font-size: 18px;
+  }
 
-    p {
-      font-size: 16px;
-      color: #a6ccd1;
-    }
+  .paper-box {
+    border-radius: 10px;
+    background-color: #fff;
+  }
+
+  .paper-title {
+    padding: 0 15px;
+    font-size: 18px;
+    line-height: 45px;
+    background: #5dbfd6;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    word-break: break-all;
+  }
+
+  .introduction {
+    margin: 10px 0;
+    padding: 0 15px;
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    display: -webkit-box; 
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; 
+    font-size: 16px;
+    line-height: 20px;
+    color: #ccc;
+  }
+  
+  footer {
+    width: 95%;
+    margin: 0 auto;
+    padding: 5px 0;
+    border-top: 1px solid #ccc;
+  }
+
+  .btn {
+    text-align: center;
+    line-height: 40px;
+    font-size: 18px;
+    color: #ccc;
+    opacity: 1;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+  
+  .btn:active {
+    opacity: 0.1;
+  }
+
+  .btn:first-child{
+    border-right: 1px solid #ccc;
   }
 }

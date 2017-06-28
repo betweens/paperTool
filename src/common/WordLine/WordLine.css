@@ -47,6 +47,7 @@
     background: #5dbfd6;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    word-break: break-all;
   }
 
   .introduction {
