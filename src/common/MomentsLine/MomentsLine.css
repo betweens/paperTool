@@ -114,4 +114,18 @@ a:before, a:after {
   .btn:first-child{
     border-right: 1px solid #ccc;
   }
+
+  .momentText{
+    width: 455px;
+    height: 120px;
+    background: #fff;
+    border-radius: 5px;
+    color: #1a7d91;
+    font-size: 16px;
+    padding: 20px;
+  }
 }
+
+
+
+

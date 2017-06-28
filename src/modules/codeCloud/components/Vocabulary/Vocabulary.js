@@ -73,7 +73,7 @@ class Vocabulary extends PageManager {
   findWord(index) {
     if(index !== '') {
       const temp = this.state.wordLists[index];
-      temp.familiar = true;
+      temp.familiar?temp.familiar = false:temp.familiar = true;
       this.setState({
         wordList: this.state.wordLists,
       });

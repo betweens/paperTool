@@ -392,18 +392,43 @@ window.location.reload()
         </div></section>):(<section className="flex-hrz"><div className="left">
                   {userCard}
                   <div className="paperInfoContainer">
+
+                      <div className="container">
+                                              
+                        <form>
+                          
+                          <div className="group">      
+                            <input type="text" required onChange={this.momentTextHandleChange} />
+                            <span className="highlight"></span>
+                            <span className="bar"></span>
+                            <label>输入文字</label>
+                          </div>
+                            
+                          <div className="group">      
+                            <input type="text" required  onChange={this.momentLinkHandleChange} />
+                            <span className="highlight"></span>
+                            <span className="bar"></span>
+                            <label>输入链接</label>
+                          </div>
+                                                                                        
+                        </form>
+
+                      </div>
+
+{/*                 
                     <span>输入文字</span><input className="paperInfo" type="text" placeholder="输入文字" onChange={this.momentTextHandleChange}/>
                     <span>链接</span><input className="paperInfo" type="text" placeholder="上传链接" onChange={this.momentLinkHandleChange}/>                
-{/*                    <span>链接描述</span><input className="paperInfo" type="text" placeholder="上传链接" onChange={this.momentLinkDescHandleChange}/>                
-*/}{/*                    <span>上传图片</span><input className="paperInfo" type="text" placeholder="上传图片" onChange={this.titleHandleChange}/>
+                    <span>链接描述</span><input className="paperInfo" type="text" placeholder="上传链接" onChange={this.momentLinkDescHandleChange}/>                
+                    <span>上传图片</span><input className="paperInfo" type="text" placeholder="上传图片" onChange={this.titleHandleChange}/>
                     <span>上传视频</span><input className="paperInfo" type="text" placeholder="上传视频" onChange={this.titleHandleChange}/>*/}
                     <div className="flex-init file-btn"  onClick={this.uploadMoment.bind(this)}><i className="iconfont icon-shangchuan1"></i><span>发布</span></div>
                   </div>
-              </div>        <div className="flex-full right">
+              </div>        
+              <div className="flex-full right">
            
-            <MomentsLine items={momentsListData} />
+                  <MomentsLine items={momentsListData} />
 
-        </div></section>)}
+              </div></section>)}
 
       
       {isShowloading ? <Loading /> : null}
