@@ -52,6 +52,7 @@ class ViewPersonalAccount extends PageManager {
       this.props.history.push('login');
       return;
     }
+    console.log(isLogin)
     this.userId = isLogin.id;
     const params = {
       objectId: this.userId,
@@ -332,8 +333,9 @@ window.location.reload()
     momentsList.map(value => {
       const temp = {
         time: this.formatDate(value.createdAt, 'yyyy-MM-dd'),
-        paperTitle: value.attributes.momentText,
-        content: value.attributes.momentLink,
+        momentText: value.attributes.momentText,
+        momentLink: value.attributes.momentLink,
+        momentLinkDesc:value.attributes.momentLinkDesc,
       };
       momentsListData.push(temp);
     });
@@ -392,8 +394,8 @@ window.location.reload()
                   <div className="paperInfoContainer">
                     <span>输入文字</span><input className="paperInfo" type="text" placeholder="输入文字" onChange={this.momentTextHandleChange}/>
                     <span>链接</span><input className="paperInfo" type="text" placeholder="上传链接" onChange={this.momentLinkHandleChange}/>                
-                    <span>链接描述</span><input className="paperInfo" type="text" placeholder="上传链接" onChange={this.momentLinkDescHandleChange}/>                
-{/*                    <span>上传图片</span><input className="paperInfo" type="text" placeholder="上传图片" onChange={this.titleHandleChange}/>
+{/*                    <span>链接描述</span><input className="paperInfo" type="text" placeholder="上传链接" onChange={this.momentLinkDescHandleChange}/>                
+*/}{/*                    <span>上传图片</span><input className="paperInfo" type="text" placeholder="上传图片" onChange={this.titleHandleChange}/>
                     <span>上传视频</span><input className="paperInfo" type="text" placeholder="上传视频" onChange={this.titleHandleChange}/>*/}
                     <div className="flex-init file-btn"  onClick={this.uploadMoment.bind(this)}><i className="iconfont icon-shangchuan1"></i><span>发布</span></div>
                   </div>
