@@ -5,8 +5,8 @@ class Login extends Component {
   constructor(props){
     super(props)
     this.state = {
-      mobilePhoneNumber: '',
-      password: '',
+      mobilePhoneNumber:'',
+      password:'',
       registerUserName:'',
       registerMobilePhoneNumber: '',
       registerPassword: '', 
@@ -176,19 +176,19 @@ class Login extends Component {
       <div className="form">
         <div className="input-container">
            <div className="input">
-              <input className="main-form" type="text"  placeholder=" 用户名"   onChange={this.registeruserNmaehandleChange}/>
+              <input className="main-form" type="text"  placeholder="用户名"   onChange={this.registeruserNmaehandleChange}/>
            </div>
 
            <div className="input">
-              <input className="main-form" type="text"  placeholder=" 手机号"  onChange={this.registerPhonehandleChange}/>
+              <input className="main-form" type="text"  placeholder="手机号"  onChange={this.registerPhonehandleChange}/>
            </div>
 
           <div className="input">
-              <input className="main-form" type="password"  placeholder=" 密码" onChange={this.registerpwdhandleChange}/>
+              <input className="main-form" type="password"  placeholder="密码" onChange={this.registerpwdhandleChange}/>
           </div>
 
           <div className="input">
-              <input className="main-form" type="password"  placeholder=" 确认密码" onChange={this.rePwdhandleChange}/>
+              <input className="main-form" type="password"  placeholder="确认密码" onChange={this.rePwdhandleChange}/>
           </div>
 
           <div className="input">
@@ -209,7 +209,7 @@ class Login extends Component {
               <p><span>密码:</span><input type="password" placeholder="输入密码" onChange={this.pwdhandleChange} /></p>
               <div className="login-btn"><button type="button" onClick={this.loginFn}>登录</button><b type="button">注册</b></div>*/}
     
-    <div className="container">
+    <div>
 
       <ul className="tabs">
         <li onClick={this.loginBtn}>登录</li>

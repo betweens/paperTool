@@ -13,7 +13,9 @@ const WordLine = (props) => {
     	<div className="time-text"><span className="text-bottom">{item.time}</span></div>
     	<div className="flex-full paper-box">
     	  <h3 className="paper-title">{item.paperTitle}</h3>
-    	  <div className="introduction">{item.content}</div>
+    	  <div className="introduction">{item.content}<br />
+          {item.keyWords&&item.keyWords[0]?item.keyWords[0]:''}
+        </div>
     	  <footer className="flex-hrz">{btns}</footer>
     	</div>
     </li>)

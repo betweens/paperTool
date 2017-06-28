@@ -13,10 +13,10 @@ body {
 }
 .tabs {
   background: #1ab188;
-  margin: 25px auto 10px;
+  margin: 200px auto 20px;
 }
 .form {
-  margin: 50px auto;
+  margin: 0px auto;
   background: #000;
 }
 li {
@@ -51,11 +51,8 @@ li a:link {
 
 
 
-.container {
-  margin-top: 80px;
-}
+
 .input-container{
-  margin-top: 50px;
   padding:20px 15px;
 }
 .input {

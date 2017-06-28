@@ -25,8 +25,10 @@ class ViewPersonalAccount extends PageManager {
       momentLink:'',
       momentLinkDesc:'',
       momentsList:[],
+      wordLists:[],
     }
-    this.initialMoments=[];
+    this.initialMoment=[];
+    this.initialPaper=[];
     this.userId = '';
     this.uploadFile = this.uploadFile.bind(this);
     this.logOutFn = this.logOutFn.bind(this);
@@ -52,13 +54,13 @@ class ViewPersonalAccount extends PageManager {
       this.props.history.push('login');
       return;
     }
-    console.log(isLogin)
     this.userId = isLogin.id;
     const params = {
       objectId: this.userId,
     };
     userModel.getPaperList(params, (data) => {
       if (data.length > 0) {
+         this.initialPaper=data;
          this.setState({
           isDataReady: false,
           username: isLogin.attributes.username,
@@ -67,7 +69,7 @@ class ViewPersonalAccount extends PageManager {
           major:isLogin.attributes.major,
           adminYear:isLogin.attributes.adminYear,
           researchField:isLogin.attributes.researchField,
-          wordLists: data,
+          wordLists: this.initialPaper,
         })
       } else {
         this.setState({
@@ -82,8 +84,9 @@ class ViewPersonalAccount extends PageManager {
       userId:this.userId
     }
     userModel.getMomentsList(momentsParams, (data) => {
+      this.initialMoment=data;
       this.setState({
-        momentsList:data
+        momentsList:this.initialMoment
       })
     }, (error) => {
     });
@@ -119,13 +122,10 @@ class ViewPersonalAccount extends PageManager {
       paperDescription:this.state.descriptionValue,
       keyWords:[this.state.typeValue]
     };
-    console.log('*********')
-    console.log(params)
     userModel.savePaper(params, (data) => {
+      this.initialPaper.push(data);
+
       this.paperId = data.id;
-      // this.setState({
-      //   isShowloading: false,
-      // });
       this.createxmlhttp(fileUrl);
     },(error) => {
       console.log(error);
@@ -159,12 +159,14 @@ class ViewPersonalAccount extends PageManager {
     this.savPaperId(this.paperId);
     userModel.saveWordLists(params, (data) => {
 
-      window.localStorage.setItem('WordListsId', data.id);
-      this.forward('myWordList/'+ this.paperId);
+      // window.localStorage.setItem('WordListsId', data.id);
+      // this.forward('myWordList/'+ this.paperId);
       // 刷新当前页面
-      // this.setState({
-      //   isShowloading: false,
-      // });
+      this.setState({
+        wordLists:this.initialPaper,
+        isShowloading: false,
+      });
+
     }, (error)=> {
       console.log(error);
     });
@@ -281,7 +283,18 @@ class ViewPersonalAccount extends PageManager {
 
     userModel.saveMoments(params, (data) => {
 //刷新当前页面
-window.location.reload()
+// window.location.reload()
+
+
+
+
+        this.initialMoment.push(data);
+        this.setState({
+          momentsList:this.initialMoment
+        })
+
+
+
     },(error) => {
 
     });    
@@ -316,6 +329,7 @@ window.location.reload()
         time: this.formatDate(value.createdAt, 'yyyy-MM-dd'),
         paperTitle: value.attributes.paperTitle,
         content: value.attributes.paperDescription,
+        keyWords:value.attributes.keyWords,
         btns: [{
           label: '查看全文',
           callback: () => { this.openNewView(value.attributes.fileUrl); }
@@ -327,7 +341,6 @@ window.location.reload()
       wordLineData.push(temp);
     });
     wordLineData=wordLineData.reverse()
-
 
     let momentsListData = [];
     momentsList.map(value => {
@@ -379,9 +392,38 @@ window.location.reload()
           </div> 
 
           {fileName?(<div className="paperInfoContainer">         
-                          <div><span>论文标题</span><input className="paperInfo" type="text" value={this.state.titleValue} onChange={this.titleHandleChange}/></div>                          
+{/*                          <div><span>论文标题</span><input className="paperInfo" type="text" value={this.state.titleValue} onChange={this.titleHandleChange}/></div>                          
                           <div><input className="paperInfo" type="text" placeholder="输入论文评论" onChange={this.descriptionHandleChange}/></div>
-                          <div><input className="paperInfo" type="text" placeholder="输入论文类型" onChange={this.typeHandleChange} /></div>
+                          <div><input className="paperInfo" type="text" placeholder="输入论文类型" onChange={this.typeHandleChange} /></div>*/}
+                          
+                          <div className="container">
+                                                  
+                            <form>
+                              
+                              <div className="group">      
+                                <input type="text" required onChange={this.titleHandleChange} value={this.state.titleValue} />
+                                <span className="highlight"></span>
+                                <span className="bar"></span>
+                                <label>论文标题</label>
+                              </div>
+                                
+                              <div className="group">      
+                                <input type="text" required  onChange={this.descriptionHandleChange} />
+                                <span className="highlight"></span>
+                                <span className="bar"></span>
+                                <label>论文评论</label>
+                              </div>
+
+                              <div className="group">      
+                                <input type="text" required  onChange={this.typeHandleChange} />
+                                <span className="highlight"></span>
+                                <span className="bar"></span>
+                                <label>论文类型</label>
+                              </div>                          
+                                                                                            
+                            </form>
+
+                          </div>
                           <div className="flex-init file-btn" onClick={this.uploadFile} ><i className="iconfont icon-shangchuan1"></i><span>上传</span></div>
                     </div>):''}
           
