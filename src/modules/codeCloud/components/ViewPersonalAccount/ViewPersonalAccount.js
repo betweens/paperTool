@@ -360,7 +360,7 @@ class ViewPersonalAccount extends PageManager {
     momentsListData=momentsListData.reverse()
 
     const tabData = {
-      label: ['论文' ,'学术圈'],
+      label: ['Startup' ,'Corporation'],
       callBack: (i) => {
         this.switchWordType(i);
       }
