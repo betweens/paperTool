@@ -1,0 +1,6 @@
+{
+  "name": "PlugAndPlay",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./PlugAndPlay.js"
+}
