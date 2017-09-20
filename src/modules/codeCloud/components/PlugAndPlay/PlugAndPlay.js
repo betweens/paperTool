@@ -26,6 +26,7 @@ class PlugAndPlay extends PageManager {
       momentLinkDesc:'',
       momentsList:[],
       wordLists:[],
+      company:'',
     }
     this.initialMoment=[];
     this.initialPaper=[];
@@ -37,7 +38,7 @@ class PlugAndPlay extends PageManager {
     this.changeInput = this.changeInput.bind(this);
     this.createxmlhttp = this.createxmlhttp.bind(this);
     this.saveWordListsFn = this.saveWordListsFn.bind(this);
-    ['titleHandleChange','descriptionHandleChange','typeHandleChange','momentTextHandleChange','momentLinkHandleChange','momentLinkDescHandleChange'].forEach((method)=>{
+    ['titleHandleChange','descriptionHandleChange','typeHandleChange','momentTextHandleChange','momentLinkHandleChange','momentLinkDescHandleChange','companyHandleChange','statusHandleChange','industryHandleChange','websiteHandleChange','founderHandleChange','investorHandleChange'].forEach((method)=>{
       this[method]=this[method].bind(this)
     })
 
@@ -273,6 +274,68 @@ class PlugAndPlay extends PageManager {
     this.setState({momentLinkDesc:event.target.value  })  
   }
 
+  companyHandleChange(){
+    this.setState({company:event.target.value})
+    console.log('com')
+  }
+
+statusHandleChange(){
+    this.setState({status:event.target.value})
+    console.log('good')
+    console.log(this.state.status)
+}
+
+industryHandleChange(){
+    this.setState({industry:event.target.value})
+
+}
+
+websiteHandleChange(){
+    this.setState({website:event.target.value})
+
+}
+
+founderHandleChange(){
+     this.setState({founder:event.target.value})
+ 
+}
+
+investorHandleChange(){
+    this.setState({investor:event.target.value})
+
+}
+
+
+uploadStartup(){
+    const params={
+      userId: this.userId,
+      momentText:this.state.momentText,
+      momentLink:this.state.momentLink,
+      momentLinkDesc:this.state.momentLinkDesc
+    };
+    if(!(this.state.momentText||this.state.momentLink||this.state.momentLinkDesc)){
+      alert('Input Something')
+      return;
+    }
+
+    userModel.saveMoments(params, (data) => {
+//刷新当前页面
+// window.location.reload()
+
+        this.initialMoment.push(data);
+        this.setState({
+          momentsList:this.initialMoment
+        })
+
+    },(error) => {
+
+    }); 
+}
+
+
+
+
+
   uploadMoment(){
     const params={
       userId: this.userId,
@@ -289,15 +352,10 @@ class PlugAndPlay extends PageManager {
 //刷新当前页面
 // window.location.reload()
 
-
-
-
         this.initialMoment.push(data);
         this.setState({
           momentsList:this.initialMoment
         })
-
-
 
     },(error) => {
 
@@ -387,14 +445,14 @@ class PlugAndPlay extends PageManager {
                         <form>
                           
                           <div className="group">      
-                            <input type="text" required onChange={this.momentTextHandleChange} />
+                            <input type="text" required onChange={this.companyHandleChange} />
                             <span className="highlight"></span>
                             <span className="bar"></span>
                             <label>Company Name</label>
                           </div>
                             
                           <div className="group">      
-                            <input type="text" required  onChange={this.momentLinkHandleChange} />
+                            <input type="text" required  onChange={this.statusHandleChange} />
                             <span className="highlight"></span>
                             <span className="bar"></span>
                             <label>Status</label>
@@ -402,14 +460,14 @@ class PlugAndPlay extends PageManager {
 
 
                           <div className="group">      
-                            <input type="text" required  onChange={this.momentLinkHandleChange} />
+                            <input type="text" required  onChange={this.industryHandleChange} />
                             <span className="highlight"></span>
                             <span className="bar"></span>
                             <label>Industry Label</label>
                           </div>
 
                           <div className="group">      
-                            <input type="text" required  onChange={this.momentLinkHandleChange} />
+                            <input type="text" required  onChange={this.websiteHandleChange} />
                             <span className="highlight"></span>
                             <span className="bar"></span>
                             <label>Website</label>
@@ -417,14 +475,14 @@ class PlugAndPlay extends PageManager {
 
 
                           <div className="group">      
-                            <input type="text" required  onChange={this.momentLinkHandleChange} />
+                            <input type="text" required  onChange={this.founderHandleChange} />
                             <span className="highlight"></span>
                             <span className="bar"></span>
                             <label>Founder</label>
                           </div>
 
                           <div className="group">      
-                            <input type="text" required  onChange={this.momentLinkHandleChange} />
+                            <input type="text" required  onChange={this.investorHandleChange} />
                             <span className="highlight"></span>
                             <span className="bar"></span>
                             <label>Investor</label>
@@ -432,7 +490,7 @@ class PlugAndPlay extends PageManager {
                         </form>
 
                       </div>
-                    <div className="flex-init file-btn"  onClick={this.uploadMoment.bind(this)}><i className="iconfont icon-shangchuan1"></i><span>Add</span></div>
+                    <div className="flex-init file-btn"  onClick={this.uploadStartup.bind(this)}><i className="iconfont icon-shangchuan1"></i><span>Add</span></div>
                   </div>
               </div>        
               <div className="flex-full right">
