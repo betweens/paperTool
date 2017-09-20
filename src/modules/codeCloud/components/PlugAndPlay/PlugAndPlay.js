@@ -319,9 +319,9 @@ class PlugAndPlay extends PageManager {
     } = this.state;
     // 头部数据
     const navBarData = {
-      title: '论文助手',
+      title: 'PlugAndPlay',
       label: {
-        text: '退出登陆',
+        text: 'LogOut',
         callback: () => { this.logOutFn(); }
       },
       imgUrl: 'http://www.sucaijishi.com/uploadfile/2014/0524/20140524012047988.png',
@@ -371,71 +371,14 @@ class PlugAndPlay extends PageManager {
                     <h1>{username}</h1>
                     <p className="flex-hrz"><span><i className="iconfont icon-coordinates_fill"></i>{school}</span><span>{department}</span></p>
                     <p className="flex-hrz"><span><i className="iconfont icon-coordinates_fill"></i>{major}</span><span>{adminYear}</span></p>
-                    <p className="flex-hrz"><span><i className="iconfont icon-coordinates_fill"></i>关注领域</span><span>{researchField}</span></p>
-                    <p className="flex-hrz" onClick={this.editProfile.bind(this)}><span><i className="iconfont icon-coordinates_fill"></i>修改个人信息</span><span></span></p>
+                    <p className="flex-hrz"><span><i className="iconfont icon-coordinates_fill"></i>Industry</span><span>{researchField}</span></p>
+                    <p className="flex-hrz" onClick={this.editProfile.bind(this)}><span><i className="iconfont icon-coordinates_fill"></i>EditProfile</span><span></span></p>
                   </div>);
 
     return (<div className="ViewPersonalAccount">
       <NavBar {...navBarData} />
       <Taps {...tabData} />      
         {!this.state.accountType?(<section className="flex-hrz"><div className="left">
-          {userCard}
-          {/*<ul className="flex-hrz paper-info">
-                      <li className="flex-full"><p>上传篇数</p><p className="number">1w</p></li>
-                      <li className="flex-full border-left-line"><p>单词数</p><p className="number">20w</p></li>
-                    </ul>*/}
-          <ul className="flex-hrz paper-info" onClick={this.vocabulary.bind(this)}>            
-            <li className="flex-full border-left-line"><p>查看所有生词</p>{/*<p className="number">20w</p>*/}</li>
-          </ul>
-
-          <div className="flex-hrz upload-paper">
-            <label className="flex-full input-selector">
-              <span className="input-description">选择要上传的文件</span>
-              <input type="file" ref="paperFile"  onChange={this.changeInput}/>
-            </label>           
-          </div> 
-
-          {fileName?(<div className="paperInfoContainer">         
-{/*                          <div><span>论文标题</span><input className="paperInfo" type="text" value={this.state.titleValue} onChange={this.titleHandleChange}/></div>                          
-                          <div><input className="paperInfo" type="text" placeholder="输入论文评论" onChange={this.descriptionHandleChange}/></div>
-                          <div><input className="paperInfo" type="text" placeholder="输入论文类型" onChange={this.typeHandleChange} /></div>*/}
-                          
-                          <div className="container">
-                                                  
-                            <form>
-                              
-                              <div className="group">      
-                                <input type="text" required onChange={this.titleHandleChange} value={this.state.titleValue} />
-                                <span className="highlight"></span>
-                                <span className="bar"></span>
-                                <label>论文标题</label>
-                              </div>
-                                
-                              <div className="group">      
-                                <input type="text" required  onChange={this.descriptionHandleChange} />
-                                <span className="highlight"></span>
-                                <span className="bar"></span>
-                                <label>论文评论</label>
-                              </div>
-
-                              <div className="group">      
-                                <input type="text" required  onChange={this.typeHandleChange} />
-                                <span className="highlight"></span>
-                                <span className="bar"></span>
-                                <label>论文类型</label>
-                              </div>                          
-                                                                                            
-                            </form>
-
-                          </div>
-                          <div className="flex-init file-btn" onClick={this.uploadFile} ><i className="iconfont icon-shangchuan1"></i><span>上传</span></div>
-                    </div>):''}
-          
-
-        </div><div className="flex-full right">
-            <WordLine items={wordLineData} />
-
-        </div></section>):(<section className="flex-hrz"><div className="left">
                   {userCard}
                   <div className="paperInfoContainer">
 
@@ -447,27 +390,110 @@ class PlugAndPlay extends PageManager {
                             <input type="text" required onChange={this.momentTextHandleChange} />
                             <span className="highlight"></span>
                             <span className="bar"></span>
-                            <label>输入文字</label>
+                            <label>Company Name</label>
                           </div>
                             
                           <div className="group">      
                             <input type="text" required  onChange={this.momentLinkHandleChange} />
                             <span className="highlight"></span>
                             <span className="bar"></span>
-                            <label>输入链接</label>
+                            <label>Status</label>
                           </div>
+
+
+                          <div className="group">      
+                            <input type="text" required  onChange={this.momentLinkHandleChange} />
+                            <span className="highlight"></span>
+                            <span className="bar"></span>
+                            <label>Industry Label</label>
+                          </div>
+
+                          <div className="group">      
+                            <input type="text" required  onChange={this.momentLinkHandleChange} />
+                            <span className="highlight"></span>
+                            <span className="bar"></span>
+                            <label>Website</label>
+                          </div>
+
+
+                          <div className="group">      
+                            <input type="text" required  onChange={this.momentLinkHandleChange} />
+                            <span className="highlight"></span>
+                            <span className="bar"></span>
+                            <label>Founder</label>
+                          </div>
+
+                          <div className="group">      
+                            <input type="text" required  onChange={this.momentLinkHandleChange} />
+                            <span className="highlight"></span>
+                            <span className="bar"></span>
+                            <label>Investor</label>
+                          </div>                          
+                        </form>
+
+                      </div>
+                    <div className="flex-init file-btn"  onClick={this.uploadMoment.bind(this)}><i className="iconfont icon-shangchuan1"></i><span>Add</span></div>
+                  </div>
+              </div>        
+              <div className="flex-full right">
+           
+                  <MomentsLine items={momentsListData} />
+
+              </div></section>):(<section className="flex-hrz"><div className="left">
+                  {userCard}
+                  <div className="paperInfoContainer">
+
+                      <div className="container">
+                                              
+                        <form>
+                          
+                          <div className="group">      
+                            <input type="text" required  onChange={this.momentLinkHandleChange} />
+                            <span className="highlight"></span>
+                            <span className="bar"></span>
+                            <label>Company Name</label>
+                          </div>
+
+                          <div className="group">      
+                            <input type="text" required  onChange={this.momentLinkHandleChange} />
+                            <span className="highlight"></span>
+                            <span className="bar"></span>
+                            <label>Status</label>
+                          </div>
+
+
+                          <div className="group">      
+                            <input type="text" required  onChange={this.momentLinkHandleChange} />
+                            <span className="highlight"></span>
+                            <span className="bar"></span>
+                            <label>Industry Label</label>
+                          </div>
+
+                          <div className="group">      
+                            <input type="text" required  onChange={this.momentLinkHandleChange} />
+                            <span className="highlight"></span>
+                            <span className="bar"></span>
+                            <label>Website</label>
+                          </div> 
+                          <div className="group">      
+                            <input type="text" required  onChange={this.momentLinkHandleChange} />
+                            <span className="highlight"></span>
+                            <span className="bar"></span>
+                            <label>Demand</label>
+                          </div> 
+                                                        
+                          {/*<div className="group">      
+                                                      <input type="text" required  onChange={this.momentLinkHandleChange} />
+                                                      <span className="highlight"></span>
+                                                      <span className="bar"></span>
+                                                      <label>输入链接</label>
+                                                    </div>*/}
                                                                                         
                         </form>
 
                       </div>
 
-{/*                 
-                    <span>输入文字</span><input className="paperInfo" type="text" placeholder="输入文字" onChange={this.momentTextHandleChange}/>
-                    <span>链接</span><input className="paperInfo" type="text" placeholder="上传链接" onChange={this.momentLinkHandleChange}/>                
-                    <span>链接描述</span><input className="paperInfo" type="text" placeholder="上传链接" onChange={this.momentLinkDescHandleChange}/>                
-                    <span>上传图片</span><input className="paperInfo" type="text" placeholder="上传图片" onChange={this.titleHandleChange}/>
-                    <span>上传视频</span><input className="paperInfo" type="text" placeholder="上传视频" onChange={this.titleHandleChange}/>*/}
-                    <div className="flex-init file-btn"  onClick={this.uploadMoment.bind(this)}><i className="iconfont icon-shangchuan1"></i><span>发布</span></div>
+                    <div className="flex-init file-btn"  onClick={this.uploadMoment.bind(this)}><i className="iconfont icon-shangchuan1"></i><span>Add</span></div>
                   </div>
               </div>        
               <div className="flex-full right">
