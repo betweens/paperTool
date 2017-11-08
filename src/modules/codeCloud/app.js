@@ -16,6 +16,7 @@ import ViewPersonalAccount from './components/ViewPersonalAccount';
 import AllMoments from './components/AllMoments';
 import PlugAndPlay from './components/PlugAndPlay';
 import EditCompany from './components/EditCompany';
+import AsiaTech from './components/AsiaTech';
 
 //说明：login 和 register之后，都进入myAccount,myAccount查wordLists表，并关联File表，列出当前用户的所有wordList和每个wordList的PDF链接
 //点击相应的单词表，进入wordList页面，列出每个wordList的所有单词
@@ -34,6 +35,7 @@ const BasicExample = () => (
       <Route path="/allMoments" component={AllMoments} />
       <Route path="/plugAndPlay" component={PlugAndPlay} />
       <Route path="/editCompany" component={EditCompany} />
+      <Route path="/AsiaTech" component={AsiaTech} />
 
     </div>
   </Router>

@@ -385,7 +385,7 @@ class ViewPersonalAccount extends PageManager {
                       <li className="flex-full border-left-line"><p>单词数</p><p className="number">20w</p></li>
                     </ul>*/}
           <ul className="flex-hrz paper-info" onClick={this.vocabulary.bind(this)}>            
-            <li className="flex-full border-left-line"><p>查看所有生词</p>{/*<p className="number">20w</p>*/}</li>
+            <li className="flex-full border-left-line"><p>查看所有</p>{/*<p className="number">20w</p>*/}</li>
           </ul>
 
           <div className="flex-hrz upload-paper">

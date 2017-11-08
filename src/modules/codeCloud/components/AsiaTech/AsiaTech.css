@@ -1,0 +1,33 @@
+.wordList{
+  
+  .save {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    width: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 14px;
+    background: #1a7d91;
+  }
+
+  .save:active {
+    background: red;
+  }
+ 
+}
+
+@media screen and (min-width:500px){
+  .wordList{
+    .Word-list,.Taps{
+        width:600px;
+        position:relative;
+        left:50%;
+        margin-left:-300px;
+    }
+
+  }
+
+}
+
