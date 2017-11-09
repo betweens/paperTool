@@ -2,23 +2,23 @@ import React, { Component } from 'react';
 import userModel from './../../models/AbstractModel.js';
 import PageManager from './../../core/PageManager.js';
 
-import './AsiaTech.css';
-class AsiaTech extends PageManager {
+import './edit.css';
+class edit extends PageManager {
 
   constructor(props){
     super(props)
 
   }
 
-  article1(){
-    this.props.history.push('article1');
+  vocabulary(){
+    this.props.history.push('vocabulary');
   }
   render() {
 
 
     return (
 <div className="AsiaTech">
-<nav className="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div className="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div className="container">
         <a className="navbar-brand" href="index.html">Asia Tech</a>
         <div className="collapse navbar-collapse" id="navbarResponsive">
@@ -27,10 +27,9 @@ class AsiaTech extends PageManager {
           </ul>
         </div>
       </div>
-    </nav>
+    </div>
 
-
-    <header className="masthead">
+    <div className="masthead">
       <div className="overlay"></div>
       <div className="container">
         <div className="row">
@@ -42,16 +41,15 @@ class AsiaTech extends PageManager {
           </div>
         </div>
       </div>
-    </header>
+    </div>
+
 
     <div className="container">
       <div className="row">
         <div className="col-lg-8 col-md-10 mx-auto">
-          
-          
-          
+                    
           <div className="post-preview">
-            <a href="http://www.baijingapp.com/article/13314">
+            <a href="http://www.baijingapp.com/article/13314"  target="_blank">
               <h2 className="post-title">
                 新加坡二手电商Carousell完成7000万美元C轮融资
               </h2>
@@ -60,14 +58,14 @@ class AsiaTech extends PageManager {
               </h6>
             </a>
             <p className="post-meta">Posted by
-              <a href="#" className="author">He Sun</a>
+              <a href="#">He Sun</a>
               2017-11-03 18:11</p>
           </div>
-          <hr />
+          <hr/>
 
           
-          <div className="post-preview" onClick={this.article1.bind(this)}>
-            <span>
+          <div className="post-preview">
+            <span  onClick={this.vocabulary.bind(this)}>
               <h2 className="post-title">
                 亚洲科技观察
               </h2>
@@ -76,20 +74,21 @@ class AsiaTech extends PageManager {
               </h6>
             </span>
             <p className="post-meta">Posted by
-              <a href="#" className="author">He Sun</a>
+              <a href="#">He Sun</a>
               2017-11-03 18:11</p>
           </div>
-          <hr />
+          <hr/>
 
 
-
+        
         </div>
-      </div>
-    </div>
-
+        </div>
+        </div>
+          
     
 
-    <footer>
+
+    
       <div className="container">
         <div className="row">
           <div className="col-lg-8 col-md-10 mx-auto">
@@ -97,7 +96,7 @@ class AsiaTech extends PageManager {
           </div>
         </div>
       </div>
-    </footer>
+    
 
 
     </div>    
@@ -105,4 +104,4 @@ class AsiaTech extends PageManager {
     );
   }
 }
-export default AsiaTech;
+export default edit;
