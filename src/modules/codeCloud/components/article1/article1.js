@@ -10,6 +10,10 @@ class article1 extends PageManager {
 
   }
 
+  componentWillMount(){
+    window.scrollTo(0,0)
+  }
+  
   vocabulary(){
     this.props.history.push('vocabulary');
   }

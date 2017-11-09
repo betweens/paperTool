@@ -13,7 +13,6 @@ class PageManager extends Component {
   componentWillMount() {
      console.log(this);
      console.log('pagemanager')
-     window.scrollTo(0,0)
   }
   // 页面向前跳转
   forward(viewPath, option) {
