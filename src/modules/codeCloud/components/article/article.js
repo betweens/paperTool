@@ -62,7 +62,7 @@ class article extends PageManager {
 
 
         <a href="#">
-          <img className="img-fluid" src={require('./post-sample-image.jpg')} alt="" />
+          <img className="img-fluid" src={require('./post-image.jpg')} alt="" />
         </a>
         <span className="caption text-muted"></span>
 
