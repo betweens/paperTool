@@ -60,7 +60,7 @@ class AsiaTech extends PageManager {
               </h6>
             </a>
             <p className="post-meta">Posted by
-              <a href="#" className="author">He Sun</a>
+              <a href="#" className="author">孙和</a>
               2017-11-03 18:11</p>
           </div>
           <hr />

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import userModel from './../../models/AbstractModel.js';
 import PageManager from './../../core/PageManager.js';
 
-import './article1.css';
 class article1 extends PageManager {
 
   constructor(props){
